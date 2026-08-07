@@ -66,9 +66,28 @@ public class ProjetoService
         
     }
 
-    internal void ExibirGitStatus(string v)
+    internal void FazerCommit(string v, string mensagem)
     {
-        throw new NotImplementedException();
+        string? caminho = repos.ExibirCaminho(v);
+        if (caminho is not null)
+        {
+         
+            ProcessStartInfo psi = new()
+            {
+                FileName = "bash",
+                Arguments = $"-c \"cd {caminho} && git add . && git commit -m '{mensagem}' && git push\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false
+            };
+
+            using Process p = Process.Start(psi)!;
+
+            Console.WriteLine(p.StandardOutput.ReadToEnd());
+            Console.WriteLine(p.StandardError.ReadToEnd());
+
+            p.WaitForExit();
+        }
     }
 
     internal void SalvarProjeto(string v)

@@ -15,7 +15,9 @@ public class ProjetosCommand : IComando
             CriarCodeCommand(),
             CriarSaveCommand(),
             CriarDeleteCommand(),
-            CriarTerminalCommand()
+            CriarTerminalCommand(),
+            CriarCommitCommand()
+
         };
 
         return projetosCmd;
@@ -28,6 +30,32 @@ public class ProjetosCommand : IComando
         cmd.SetAction(_ =>
         {
             new ProjetoService().Exibir();
+        });
+
+        return cmd;
+    }
+
+    private static Command CriarCommitCommand()
+    {
+        var nomeArg = new Argument<string>("nome")
+        {
+            Description = "Nome do projeto"
+        };
+
+        var MensagemArg = new Argument<string>("Mensagem")
+        {
+            Description = "Mensagem pra commit"
+        };
+
+        var cmd = new Command("commit", "Faz o commit")
+        {
+            nomeArg,
+            MensagemArg
+        };
+
+        cmd.SetAction(pr =>
+        {
+            new ProjetoService().FazerCommit(pr.GetValue(nomeArg)!,pr.GetValue(MensagemArg)! );
         });
 
         return cmd;
