@@ -6,6 +6,8 @@ public class AudioService
 {
     private Process? player;
 
+    bool tocando = true;
+
     public  void PlayPlaylist(string caminho)
     {
         var musicas = Directory.GetFiles(caminho, "*.mp3")
@@ -28,7 +30,7 @@ public class AudioService
 
             Console.WriteLine($"🎵 {Path.GetFileName(musicas[atual])}");
             Console.WriteLine();
-            Console.WriteLine("← Voltar | → Próxima | S Sair");
+            Console.WriteLine("← Voltar | → Próxima | S Sair | P Pausar");
 
 
             player = new Process();
@@ -98,6 +100,21 @@ public class AudioService
                     break;
 
 
+                case ConsoleKey.P:
+                    if(tocando)
+                    {
+                        Stop();
+                        tocando = !tocando;
+                    }
+                    break;
+
+                case ConsoleKey.C:
+                    if(!tocando)
+                    {
+                        Tocar();
+                        tocando = !tocando;
+                    }
+                break;
                 case ConsoleKey.S:
 
                     Stop();
@@ -113,7 +130,12 @@ public class AudioService
         {
             if (!player.HasExited)
                 player.Kill();
-
+            
+            Console.Clear();
+            Console.WriteLine("Nenhuma musica tocando");
+            Console.WriteLine();
+            Console.WriteLine("← Voltar | → Próxima | S Sair | C Começar");
+    
             player.Dispose();
             player = null;
         }
