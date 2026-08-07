@@ -20,6 +20,7 @@ root.Add(new GodotCommand().Get());
 root.Add(new IpCommand().Get());
 root.Add(new AdviceCommand().Get());
 root.Add(new PlaylistCommand().Get());
+root.Add(new NovoCommand().Get());
 
 //root.Add(new NotasCommand().Get());
 
