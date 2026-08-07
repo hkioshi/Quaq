@@ -1,0 +1,50 @@
+# Arquivos de configuração com segredo
+.env
+
+# Build do .NET
+bin/
+obj/
+
+# Arquivos do Visual Studio / Rider
+.vs/
+.idea/
+
+# Arquivos de usuário
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Banco de dados local
+*.db
+*.sqlite
+*.sqlite3
+
+# Configurações locais
+appsettings.Development.json
+
+# Pacotes NuGet
+*.nupkg
+
+# Godot (caso use futuramente)
+.godot/
+
+# Node (caso tenha interface futuramente)
+node_modules/
+dist/
+
+# Arquivos gerados
+publish/
+Release/
+Debug/

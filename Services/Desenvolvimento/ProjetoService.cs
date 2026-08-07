@@ -1,0 +1,81 @@
+using System.Diagnostics;
+using Quaq.Repository;
+namespace Quaq.Services.Desenvolvimento;
+public class ProjetoService
+{
+    ProjetosRepositorio repos = new("projetos.json");
+
+    internal void AbrirProjeto(string v)
+    {
+        string? caminho = repos.ExibirCaminho(v);
+        if(caminho is null)
+        {
+            Console.WriteLine($"Nenhum projeto chamado {v} foi encontrado");
+            return;
+        }
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "xdg-open",
+            Arguments = $"\"{caminho}\"",
+            UseShellExecute = true
+        });
+    }
+
+    public void AbrirTerminal(string nomeProjeto)
+    {
+
+        string? caminho = repos.ExibirCaminho(nomeProjeto);
+
+        if (caminho is null)
+        {
+            Console.WriteLine($"Nenhum projeto chamado '{nomeProjeto}' foi encontrado.");
+            return;
+        }
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = "gnome-terminal",
+            Arguments = $"--working-directory=\"{caminho}\"",
+            UseShellExecute = true
+        };
+
+        Process.Start(psi);
+    }
+
+    internal void CodarProjeto(string v)
+    {
+        string? caminho = repos.ExibirCaminho(v);
+        if(caminho is null)
+        {
+            Console.WriteLine($"Nenhum projeto chamado {v} foi encontrado");
+            return;
+        }
+
+        Console.WriteLine(caminho);
+        Process.Start("code", caminho);
+    }
+
+    internal void DeletarProjeto(string v) =>
+        repos.DeletarProjeto(v);
+    
+    internal void Exibir()
+    {
+        var listaDeProjeto = repos.ExibirTodosProjetos();
+        foreach(var i in listaDeProjeto)
+            Console.WriteLine(i.Key);
+        
+    }
+
+    internal void ExibirGitStatus(string v)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void SalvarProjeto(string v)
+    {
+        repos.SalvarProjeto(v, Directory.GetCurrentDirectory());
+        Console.WriteLine("Projeto Salvo");
+    }
+
+    
+}
