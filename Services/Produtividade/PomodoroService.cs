@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Quaq.Services.Media;
 
 namespace Quaq.Services.Produtividade;
 
@@ -67,6 +68,70 @@ public class PomodoroService
             Process.Start(psi);
 
             Console.ReadKey();     
+
+            Ciclo++;
+
+        }
+    }
+    public static void Start(int foco, int descanso, string playlist)
+    {
+        int tempoFoco = foco;
+        int TempoDescansoPadrao = descanso;
+        int TempoDescanso;
+        var psi = new ProcessStartInfo
+        {
+            FileName = "notify-send",
+            Arguments = "\"Quaq Timer\" \"Tempo acabou!\"",
+            UseShellExecute = false
+        };
+        Task.Run(() => PlaylistService.Tocar(playlist));
+ 
+
+
+        int Ciclo = 1;
+        while(true)
+        {
+            Console.WriteLine("Foco iniciado!");
+
+            for (int i = tempoFoco; i >= 0; i--)
+            {
+                Console.Clear();
+                Titulo("Pomodoro");
+                Console.WriteLine($"Ciclo: {Ciclo}");
+                int minutos = i / 60;
+                int segundos = i % 60;
+
+                Console.WriteLine($"Foco: {minutos:D2}:{segundos:D2}");
+                Console.WriteLine("\n← Voltar | → Próxima | S Sair");
+
+                Thread.Sleep(1000);
+            }
+            Console.WriteLine("Fim do Foco - Aperte qqr botao pra continuar.");
+            Process.Start(psi);
+
+            Console.ReadKey();    
+
+            TempoDescanso = Ciclo % 4 == 0? TempoDescansoPadrao*3 : TempoDescansoPadrao; 
+            for (int i = TempoDescanso; i >= 0; i--)
+            {
+                Console.Clear();
+                Titulo("Pomodoro");
+                Console.WriteLine($"Ciclo: {Ciclo}");
+                int minutos = i / 60;
+                int segundos = i % 60;
+
+                Console.WriteLine($"Descanso: {minutos:D2}:{segundos:D2}");
+                Console.WriteLine("\n← Voltar | → Próxima | S Sair");
+
+                Thread.Sleep(1000);
+                
+            }
+            Console.WriteLine("Fim do descanso - Aperte qqr botao pra continuar.");
+
+            Process.Start(psi);
+
+            Console.ReadKey();  
+               
 
             Ciclo++;
 
