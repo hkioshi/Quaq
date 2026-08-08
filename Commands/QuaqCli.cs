@@ -1,6 +1,7 @@
 
 using System.CommandLine;
 using System.CommandLine.Help;
+using Quaq.Services.Desenvolvimento;
 using Quaq.Services.Media;
 namespace Quaq.Commands
 {
@@ -14,18 +15,12 @@ namespace Quaq.Commands
 
             root.SetAction(parseResult =>
             {
-                Console.WriteLine("""
-                      __
-                    >(o )___
-                    ( ._> /
-                     `---'
+                ConsoleUI.Home();
 
-                Quaq - Sua Ferramenta Multiuso Cli
-
-                Digite:
-                    quaq --help
-                """);
-                FalaService.Falar("O lá... eu sou quaq. Digite quaq - - help");
+                FalaService.Falar(
+                    "Olá. Eu sou o Quaq. "
+                    + "Digite quaq help"
+            );
             });
             root.Add(
                 new HelpOption("help", "-h", "--help")

@@ -9,7 +9,7 @@ namespace Quaq.Services.Media
     public class PlaylistService
     {
         
-        public static void Tocar(string pasta)
+        public static void Tocar(string pasta ,bool shuffle)
         {
             string pastaMusicas = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
@@ -22,7 +22,7 @@ namespace Quaq.Services.Media
                 return;
             }
             var service = new AudioService();
-            service.PlayPlaylist(pastaMusicas);
+            service.PlayPlaylist(pastaMusicas, shuffle);
         }
 
     }

@@ -8,11 +8,17 @@ public class AudioService
 
     bool tocando = true;
 
-    public  void PlayPlaylist(string caminho)
+    public  void PlayPlaylist(string caminho, bool shuffle)
     {
         var musicas = Directory.GetFiles(caminho, "*.mp3")
             .OrderBy(x => x)
             .ToList();
+
+        if(shuffle)
+        {
+            musicas = musicas.Shuffle().ToList();
+        }
+        
 
         if (musicas.Count == 0)
         {
@@ -26,6 +32,8 @@ public class AudioService
         {
             Stop();
 
+
+            
             Console.Clear();
 
             Console.WriteLine($"🎵 {Path.GetFileName(musicas[atual])}");

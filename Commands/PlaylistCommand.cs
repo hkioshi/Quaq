@@ -18,8 +18,14 @@ namespace Quaq.Commands
             {
                 Description = "Tocar playlist"
             };
+        var ShfflOP = new Option<bool>("-a","-s","--aleatorio","--shuffle")
+            {
+                Description = "Aleatorizar a playlist"
+            };
+
 
             PlCmd.Add(PlArg);
+            PlCmd.Add(ShfflOP);
 
             PlCmd.SetAction(parseResult =>
             {
@@ -28,7 +34,10 @@ namespace Quaq.Commands
                 
                 if(playlist is not null)
                 {
-                    PlaylistService.Tocar(playlist);
+                    if(parseResult.GetValue(ShfflOP))
+                        PlaylistService.Tocar(playlist, true);
+                    else
+                        PlaylistService.Tocar(playlist, false);
                 }
             });
 

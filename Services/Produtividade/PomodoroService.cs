@@ -84,7 +84,7 @@ public class PomodoroService
             Arguments = "\"Quaq Timer\" \"Tempo acabou!\"",
             UseShellExecute = false
         };
-        Task.Run(() => PlaylistService.Tocar(playlist));
+        Task.Run(() => PlaylistService.Tocar(playlist,false));
  
 
 

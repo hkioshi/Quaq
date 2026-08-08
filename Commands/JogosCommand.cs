@@ -12,7 +12,8 @@ public class JogosCommand: IComando
         var JogosCmd = new Command("jogos", "abre jogos")
         {
             CriarAzaharCommand(),
-            CriarSVCommand()
+            CriarSVCommand(),
+            CriarModrichCommand()
         };
 
         return JogosCmd;
@@ -40,5 +41,16 @@ public class JogosCommand: IComando
 
         return cmd;
     }
+    private static Command CriarModrichCommand()
+        {
+            var cmd = new Command("mod", "Abre o modrich");
+
+            cmd.SetAction(_ =>
+            {
+                JogoService.AbrirModrinth();
+            });
+
+            return cmd;
+        }
 
 }

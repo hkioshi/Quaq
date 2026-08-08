@@ -23,7 +23,7 @@ root.Add(new PlaylistCommand().Get());
 root.Add(new NovoCommand().Get());
 root.Add(new AnotacoesCommand().Get());
 root.Add(new JogosCommand().Get());
-//root.Add(new NotasCommand().Get());
+//root.Add(new FlashcardCommad().Get());
 
 
     // new UpdateCommand().Get();

@@ -23,4 +23,14 @@ public class JogoService
             UseShellExecute = false
         });
     }
+
+    public static void AbrirModrinth()
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "flatpak",
+            Arguments = "run com.modrinth.ModrinthApp",
+            UseShellExecute = false
+        });
+    }
 }
