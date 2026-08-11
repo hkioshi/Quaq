@@ -1,6 +1,6 @@
 using System.CommandLine;
+using Quaq.Interfaces;
 using Quaq.Services.Media;
-using Quaq.Commands.Interfaces;
 
 namespace Quaq.Commands;
 

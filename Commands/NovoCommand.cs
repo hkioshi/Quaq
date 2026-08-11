@@ -1,5 +1,5 @@
 using System.CommandLine;
-using Quaq.Commands.Interfaces;
+using Quaq.Interfaces;
 using Quaq.Services.Desenvolvimento;
 
 namespace Quaq.Commands;

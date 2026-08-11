@@ -35,12 +35,8 @@ public class ProjetosRepositorio : Repositorio
                     Console.WriteLine("\nDeletado com sucesso");
                 }
                 else
-                {
                     Console.WriteLine("\nCancelado.");
-                }
                 
-                
-
             }
             string texto = JsonSerializer.Serialize(projs, new JsonSerializerOptions
             {

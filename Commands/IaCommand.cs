@@ -1,7 +1,7 @@
 
 using System.CommandLine;
+using Quaq.Interfaces;
 using Quaq.Services.IA;
-using Quaq.Commands.Interfaces;
 
 namespace Quaq.Commands;
 

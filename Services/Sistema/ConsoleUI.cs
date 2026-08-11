@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Quaq.Services.Desenvolvimento;
+namespace Quaq.Services.Sistema;
 public static class ConsoleUI
 {
     public static void Home()
@@ -23,9 +23,9 @@ public static class ConsoleUI
         Console.WriteLine("""
                                       Q U A Q
                             SISTEMA MULTIUSO DE TERMINAL
+                                    by Quaq Labs
 
                       ╭────────────────────────────────────╮
-                      │                                    │
                       │   __                               │
                       │ >(o )___      Bem-vindo ao Quaq    │
                       │  ( ._> /     ───────────────────   │
@@ -81,7 +81,7 @@ public static class ConsoleUI
 
         ┌─ SISTEMA ────────────────────────┐    ┌─ RECURSOS ───────────────────────┐
         │                                  │    │                                  │
-        │  VERSÃO      1.5.9               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
+        │  VERSÃO      1.6.0               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
         │  RUNTIME     .NET 10             │    │  USO         {usoMemoria,5:F1}%              │
         │  PLATAFORMA  Linux               │    │  CPU         {temperaturaTexto,-12}        │
         │  STATUS      ● ONLINE            │    │  STATUS      {statusTemperatura,-15}     │

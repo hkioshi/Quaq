@@ -1,0 +1,87 @@
+╔══════════════════════════════════════════════════════════════╗
+║ QUAQ 1.6.0 — DEV LOG ║
+╚══════════════════════════════════════════════════════════════╝
+
+NOVA VERSÃO
+────────────────────────────────────────────────────────────
+A versão 1.6.0 inicia uma nova fase de organização,
+configuração e comunicação do Quaq.
+
+[ CONFIGURAÇÃO ]
+────────────────────────────────────────────────────────────
+
+Novo sistema de configuração do Quaq
+
+Novo comando: quaq config <opção>
+
+Opções:
+• nome
+• email
+• senha
+
+Exemplos:
+
+  quaq config nome
+  quaq config nome --def "Henrique"
+
+  quaq config email
+  quaq config email --def "exemplo@email.com"
+
+  quaq config senha
+  quaq config senha --def "senha"
+Configurações armazenadas em config.json
+Informações sensíveis armazenadas no cofre de credenciais
+
+[ EMAIL ]
+────────────────────────────────────────────────────────────
+
+Email agora é obtido através do config.json
+Removida dependência do .env para o email
+Senha agora é obtida através do cofre de credenciais
+Removida dependência do .env para a senha
+
+[ LOGS ]
+────────────────────────────────────────────────────────────
+
+Novo sistema de logs
+
+Novo comando:
+
+quaq logs
+
+Permite visualizar os registros gerados pelo Quaq
+
+[ FUSO HORARIO ]
+────────────────────────────────────────────────────────────
+
+Novo conversor de fuso horário
+
+Novo comando:
+
+quaq hora <origem> <destino> <hora>
+
+Exemplo:
+
+  quaq hora brasil vietna 13:20
+Conversao de horarios entre diferentes fusos
+
+[ REMOCOES ]
+────────────────────────────────────────────────────────────
+
+Removida a funcao "fala" da tela inicial
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.0
+
+Configuracao
+Cofre de credenciais
+Logs
+Conversor de fuso horario
+Funcao fala da tela inicial
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.0
+"Um passo de cada vez."
+╚══════════════════════════════════════════════════════════════╝

@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Mail;
 using DotNetEnv;
 using Quaq.Data;
+using Quaq.Repository;
 namespace Quaq.Services.Internet;
 public class NullEmailException : Exception;
 public class NullContatoException : Exception;
@@ -76,12 +77,23 @@ public class EmailService
                 throw new NullContatoException();
             if(contato.Email is null)
                 throw new NullEmailException();
-            Env.Load();
+            ConfigRepository emailRepos = new();
+            SenhaRepository senhaRepos = new();
+            string? email = emailRepos.ExibirEmail();
+            if(email is null)
+            {
+                Console.WriteLine("Email nao definido, use quaq config email -d {Escreva seu email aq}");
+                return;
+            }
 
-            string? senha = Environment.GetEnvironmentVariable("SENHAEMAIL");
-            string? email = Environment.GetEnvironmentVariable("EMAIL");
+            string? senha = senhaRepos.ExibirSenha(email);
+            if(senha is null)
+            {
+                Console.WriteLine("Senha nao definida, use quaq config senha -d {Escreva sua senha aq entre aspas}");
+                return;
+            }
                 
-            mail.From = new MailAddress(email!);
+            mail.From = new MailAddress(email);
             mail.To.Add(contato.Email);
             mail.Subject = Assunto;
             mail.Body = Corpo;

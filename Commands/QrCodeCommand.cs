@@ -1,7 +1,6 @@
-using Quaq.Commands.Interfaces;
-
 using System.CommandLine;
 using Quaq.Services.Media;
+using Quaq.Interfaces;
 namespace Quaq.Commands;
 
 public class QrCodeCommand : IComando

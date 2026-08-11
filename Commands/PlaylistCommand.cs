@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.CommandLine;
-using System.Linq;
-using System.Threading.Tasks;
-using Quaq.Commands.Interfaces;
+using Quaq.Interfaces;
 using Quaq.Services.Media;
 
 namespace Quaq.Commands

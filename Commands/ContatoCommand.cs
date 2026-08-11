@@ -1,7 +1,6 @@
 using System.CommandLine;
-using Quaq.Data;
+using Quaq.Interfaces;
 using Quaq.Services.Internet;
-using Quaq.Commands.Interfaces;
 
 namespace Quaq.Commands;
 

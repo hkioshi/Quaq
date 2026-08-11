@@ -1,0 +1,92 @@
+Quero que você crie um **Dev Log de uma versão do Quaq** para ser salvo como arquivo `.txt` e exibido diretamente no terminal.
+
+Use as informações que eu fornecer sobre as mudanças da versão e transforme-as em um Dev Log moderno, organizado e fácil de ler.
+
+### Regras de formato
+
+* O resultado deve ser **somente texto**, sem Markdown.
+* Deve funcionar bem em um terminal.
+* Use ASCII/Unicode simples e alinhamento organizado.
+* Não use emojis.
+* Não use cores ou códigos ANSI.
+* Não use tabelas.
+* Use títulos e divisores visualmente claros.
+* Mantenha uma aparência moderna, limpa e consistente.
+* Não invente funcionalidades que não foram mencionadas.
+* Corrija erros de português nas descrições das mudanças.
+* Mantenha nomes de comandos exatamente como fornecidos.
+* Comandos devem aparecer em blocos destacados.
+* Exemplos de uso devem ser incluídos quando forem fornecidos ou puderem ser derivados diretamente das informações.
+* Use português do Brasil.
+
+### Estrutura
+
+Comece com:
+
+╔══════════════════════════════════════════════════════════════╗
+║                     QUAQ X.X.X — DEV LOG                  ║
+╚══════════════════════════════════════════════════════════════╝
+
+Depois organize as mudanças em categorias como:
+
+[ NOVIDADES ]
+[ ALTERAÇÕES ]
+[ MELHORIAS ]
+[ REMOÇÕES ]
+[ CORREÇÕES ]
+[ COMANDOS ]
+
+Use somente as categorias que realmente tiverem conteúdo.
+
+Para cada mudança, use:
+
+* Descrição da mudança
+
+Para remoções:
+
+* Descrição da remoção
+
+Para comandos:
+
+* Novo comando:
+
+  quaq comando <argumentos>
+
+Exemplo:
+
+```
+  quaq comando exemplo
+```
+
+Finalize com:
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq X.X.X
+
+* Principais novidades
+* Principais melhorias
+
+- Principais remoções
+
+────────────────────────────────────────────────────────────
+QUAQ X.X.X
+"Um passo de cada vez."
+
+### Informações da versão
+
+Versão:
+[COLOQUE A VERSÃO]
+
+Mudanças:
+[COLOQUE AQUI TODAS AS MUDANÇAS DA VERSÃO]
+
+Comandos novos:
+[COLOQUE AQUI OS COMANDOS, SE HOUVER]
+
+Remoções:
+[COLOQUE AQUI AS REMOÇÕES, SE HOUVER]
+
+Correções:
+[COLOQUE AQUI AS CORREÇÕES, SE HOUVER]

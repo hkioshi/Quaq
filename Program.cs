@@ -23,6 +23,11 @@ root.Add(new PlaylistCommand().Get());
 root.Add(new NovoCommand().Get());
 root.Add(new AnotacoesCommand().Get());
 root.Add(new JogosCommand().Get());
+root.Add(new HoraCommand().Get());
+root.Add(new ConfigCommand().Get());
+root.Add(new LogCommand().Get());
+
+
 //root.Add(new FlashcardCommad().Get());
 
 
