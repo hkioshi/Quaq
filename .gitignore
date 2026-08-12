@@ -4,6 +4,7 @@
 # Build do .NET
 bin/
 obj/
+.sh
 
 # Arquivos do Visual Studio / Rider
 .vs/

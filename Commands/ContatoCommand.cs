@@ -1,6 +1,7 @@
 using System.CommandLine;
 using Quaq.Interfaces;
 using Quaq.Services.Internet;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Commands;
 
@@ -53,7 +54,7 @@ public class ContatoCommand : IComando
 
             if (nome is null)
             {
-                Console.WriteLine("É necessário informar o nome.");
+                UiService.ErroUi("É necessário informar o nome.");
                 return;
             }
 

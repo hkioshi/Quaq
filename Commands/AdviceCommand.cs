@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.CommandLine;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Quaq.Interfaces;
 using Quaq.Services.Diversao;
 using Quaq.Services.Produtividade;
@@ -14,7 +9,7 @@ public class AdviceCommand : IComando
 {
     public Command Get()
     {
-        var AdviceCmd = new Command("adv", "Da um conselho");
+        var AdviceCmd = new Command("conselho", "Da um conselho");
         var MotivacaoOp = new Option<bool>("-m", "--motivacao");
 
         AdviceCmd.Add(MotivacaoOp);
@@ -23,7 +18,7 @@ public class AdviceCommand : IComando
             if(parseResult.GetValue(MotivacaoOp))
                 MotivacaoService.Motivar();
             else
-                await AdviceService.GetAdvice();
+                await MotivacaoService.GetAdvice();
 
         });
 

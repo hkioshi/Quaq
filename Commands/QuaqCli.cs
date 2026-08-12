@@ -6,7 +6,6 @@ namespace Quaq.Commands;
 
 public class QuaqCli 
 {
-    
     public RootCommand Get()
     {
         var root = new RootCommand("Quaq - Kit de Utilidades");

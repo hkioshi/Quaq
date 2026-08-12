@@ -1,45 +1,39 @@
 using System.Diagnostics;
+using Quaq.Services.Sistema;
 namespace Quaq.Services.Internet;
 
 public class NavegacaoService
 {
-    public static void Navegar()
+    private static void nav(string file, string args)
     {
-        Process.Start(new ProcessStartInfo
+        var processo = new Process
         {
-            FileName = "brave-browser",
-            Arguments = "--incognito https://www.google.com",
-            UseShellExecute = true
-        });
-    }
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = file,
+                Arguments = args,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            }
+            
+        };
+        UiService.AvisoUi("Abrindo...");
+        processo.Start();
 
-    public static void Navegar(string s)
-    {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = "brave-browser",
-            Arguments = $"https://{s}",
-            UseShellExecute = true
-        });
+        _ = processo.StandardOutput.ReadToEndAsync();
+        _ = processo.StandardError.ReadToEndAsync();
     }
+    public static void Navegar() =>
+        nav("brave-browser","https://www.google.com");
+    
+    public static void Navegar(string s)=>
+        nav("brave-browser",$"https://{s}");
+    
+    public static void NavegarAnnon()=>
+        nav("brave-browser","--incognito https://www.google.com");
 
-    public static void NavegarAnnon()
-    {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = "brave-browser",
-            Arguments = "--incognito https://www.google.com",
-            UseShellExecute = true
-        });
-    }
-
-    public static void NavegarAnnon(string s)
-    {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = "brave-browser",
-            Arguments = $"--incognito https://{s}",
-            UseShellExecute = true
-        });
-    }
+    public static void NavegarAnnon(string s)=>
+        nav("brave-browser",$"--incognito https://{s}");
 }

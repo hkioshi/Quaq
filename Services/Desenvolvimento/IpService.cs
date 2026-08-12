@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Services.Desenvolvimento
 {
@@ -12,7 +13,8 @@ namespace Quaq.Services.Desenvolvimento
                 if (ip.AddressFamily == AddressFamily.InterNetwork &&
                     ip.ToString().StartsWith("192.168."))
                 {
-                    Console.WriteLine(ip.ToString());
+                    
+                    UiService.LinhaUi("Ip",ip.ToString());
                 }
             }
 

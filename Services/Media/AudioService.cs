@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Services.Media;
 
@@ -32,13 +33,11 @@ public class AudioService
         {
             Stop();
 
-
-            
             Console.Clear();
-
-            Console.WriteLine($"🎵 {Path.GetFileName(musicas[atual])}");
+            
+            UiService.LinhaUi("Musica",$"🎵 {Path.GetFileName(musicas[atual])}");
             Console.WriteLine();
-            Console.WriteLine("← Voltar | → Próxima | S Sair | P Pausar");
+            UiService.LinhaUi("Controle","← Voltar | → Próxima | S Sair | P Pausar");
 
 
             player = new Process();
@@ -140,9 +139,9 @@ public class AudioService
                 player.Kill();
             
             Console.Clear();
-            Console.WriteLine("Nenhuma musica tocando");
+            UiService.LinhaUi("Musica","Nenhuma musica tocando");
             Console.WriteLine();
-            Console.WriteLine("← Voltar | → Próxima | S Sair | C Começar");
+            UiService.LinhaUi("Controle","← Voltar | → Próxima | S Sair | C Começar");
     
             player.Dispose();
             player = null;

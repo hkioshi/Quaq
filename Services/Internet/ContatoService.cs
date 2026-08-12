@@ -1,5 +1,6 @@
 using Quaq.Data;
 using Quaq.Repository;
+using Quaq.Services.Sistema;
 namespace Quaq.Services.Internet;
 public class ContatoService
 {
@@ -12,13 +13,13 @@ public class ContatoService
     {
         if (!EmailService.ValidarEmail(v2))
         {
-            Console.WriteLine("Email não valido");
+            UiService.ErroUi("Email não valido");
             return;
         }
         var infos = service.BuscarContato(v1) ?? new Infos() ;
         infos.Email = v2;
         service.SalvarJsonContato(v1,infos);
-        Console.WriteLine("email adicionado");
+        UiService.AvisoUi("email adicionado");
     
     }
 
@@ -27,36 +28,38 @@ public class ContatoService
         var infos = service.BuscarContato(v1) ?? new Infos() ;
         infos.Telefone = v2;
         service.SalvarJsonContato(v1,infos);
-        Console.WriteLine("telefone adicionado");
+        UiService.AvisoUi("telefone adicionado");
 
     }
 
     public void Exibir()
     {
+        UiService.LinhaUi("Contatos");
+
         foreach(var c in service.BuscarTodosContatos())
-            Console.WriteLine($"{c.Key}\n- Email - {c.Value.Email ?? "N/A"}\n- Telefone - {c.Value.Telefone ?? "N/A"}\n");
+            UiService.ListaUi($"{c.Key}",[$"- Email - {c.Value.Email ?? "N/A"}",$"- Telefone - {c.Value.Telefone ?? "N/A"}"]);
     }
     public void Exibir(string nome)
     {
         var pessoa = service.BuscarContato(nome) ?? new Infos();
-        Console.WriteLine($"{nome}\n- Email - {pessoa.Email ?? "N/A"}\n- Telefone - {pessoa.Telefone ?? "N/A"}\n");
+        UiService.ListaUi($"{nome}",[$"- Email - {pessoa.Email ?? "N/A"}",$"- Telefone - {pessoa.Telefone ?? "N/A"}"]);
     }
     public void DeletarContato(string nome)
     {
         var contatos = service.BuscarTodosContatos();
         if(contatos.ContainsKey(nome))
         {
-            Console.WriteLine("contato encontrado, quer mesmo deletar (y/n)");
+            UiService.AvisoUi("contato encontrado, quer mesmo deletar (y/n)");
             ConsoleKeyInfo tecla = Console.ReadKey();
 
             if (tecla.Key == ConsoleKey.Y)
             {
                 contatos.Remove(nome);
-                Console.WriteLine("\nDeletado com sucesso");
+                UiService.AvisoUi("\nDeletado com sucesso");
             }
             else
             {
-                Console.WriteLine("\nCancelado.");
+                UiService.AvisoUi("\nCancelado.");
             }
             
             

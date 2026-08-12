@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Quaq.Repository;
+using Quaq.Services.Sistema;
 namespace Quaq.Services.Desenvolvimento;
 public class ProjetoService
 {
@@ -61,9 +62,11 @@ public class ProjetoService
     internal void Exibir()
     {
         var listaDeProjeto = repos.ExibirTodosProjetos();
+        List<string> strings = [];
         foreach(var i in listaDeProjeto)
-            Console.WriteLine(i.Key);
-        
+            strings.Add($"# {i.Key}");
+        UiService.ListaUi("Projetos", strings.ToArray());
+
     }
 
     internal void FazerCommit(string v, string mensagem)
@@ -93,7 +96,7 @@ public class ProjetoService
     internal void SalvarProjeto(string v)
     {
         repos.SalvarProjeto(v, Directory.GetCurrentDirectory());
-        Console.WriteLine("Projeto Salvo");
+        UiService.AvisoUi("Projeto Salvo");
     }
 
     

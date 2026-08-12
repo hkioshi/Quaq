@@ -25,7 +25,7 @@ public class JogosCommand: IComando
 
         cmd.SetAction(_ =>
         {
-            JogoService.AbrirAzahar();
+            JogoService.Abrir("flatpak", "run org.azahar_emu.Azahar");
         });
 
         return cmd;
@@ -36,7 +36,7 @@ public class JogosCommand: IComando
 
         cmd.SetAction(_ =>
         {
-            JogoService.AbrirStardew();
+            JogoService.Abrir("steam", "steam://rungameid/413150");
         });
 
         return cmd;
@@ -47,7 +47,7 @@ public class JogosCommand: IComando
 
             cmd.SetAction(_ =>
             {
-                JogoService.AbrirModrinth();
+                JogoService.Abrir("flatpak", "run com.modrinth.ModrinthApp");
             });
 
             return cmd;

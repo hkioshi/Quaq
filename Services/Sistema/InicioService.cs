@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Quaq.Repository;
 
 namespace Quaq.Services.Sistema;
 public static class ConsoleUI
@@ -19,11 +20,14 @@ public static class ConsoleUI
     private static void Header()
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
-
-        Console.WriteLine("""
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        ConfigRepository config = new();
+        
+        var mensagem = $"Bem vindo {config.ExibirNome()}" ?? "   by Quaq Labs";
+        Console.WriteLine($"""
                                       Q U A Q
                             SISTEMA MULTIUSO DE TERMINAL
-                                    by Quaq Labs
+                                 {mensagem}
 
                       ╭────────────────────────────────────╮
                       │   __                               │
@@ -81,7 +85,7 @@ public static class ConsoleUI
 
         ┌─ SISTEMA ────────────────────────┐    ┌─ RECURSOS ───────────────────────┐
         │                                  │    │                                  │
-        │  VERSÃO      1.6.0               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
+        │  VERSÃO      1.6.1               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
         │  RUNTIME     .NET 10             │    │  USO         {usoMemoria,5:F1}%              │
         │  PLATAFORMA  Linux               │    │  CPU         {temperaturaTexto,-12}        │
         │  STATUS      ● ONLINE            │    │  STATUS      {statusTemperatura,-15}     │

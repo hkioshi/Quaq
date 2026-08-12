@@ -3,6 +3,7 @@ using System.Net.Mail;
 using DotNetEnv;
 using Quaq.Data;
 using Quaq.Repository;
+using Quaq.Services.Sistema;
 namespace Quaq.Services.Internet;
 public class NullEmailException : Exception;
 public class NullContatoException : Exception;
@@ -33,18 +34,18 @@ public class EmailService
                 smtp.Credentials = new NetworkCredential(email,senha );
                 // 3. Enviar
                     smtp.Send(mail);
-                    Console.WriteLine("E-mail enviado com sucesso!");
+                    UiService.AvisoUi("E-mail enviado com sucesso!");
             
             }
         }
         
         catch (FormatException)
         {
-            Console.WriteLine("O email não está no formato correto.");
+            UiService.ErroUi("O email não está no formato correto.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Erro ao enviar: " + ex.Message);
+            UiService.ErroUi("Erro ao enviar: " + ex.Message);
         }
     }
 
@@ -82,14 +83,14 @@ public class EmailService
             string? email = emailRepos.ExibirEmail();
             if(email is null)
             {
-                Console.WriteLine("Email nao definido, use quaq config email -d {Escreva seu email aq}");
+                UiService.AvisoUi("Email nao definido, use quaq config email -d {Escreva seu email aq}");
                 return;
             }
 
             string? senha = senhaRepos.ExibirSenha(email);
             if(senha is null)
             {
-                Console.WriteLine("Senha nao definida, use quaq config senha -d {Escreva sua senha aq entre aspas}");
+                UiService.AvisoUi("Senha nao definida, use quaq config senha -d {Escreva sua senha aq entre aspas}");
                 return;
             }
                 
@@ -106,25 +107,25 @@ public class EmailService
                 smtp.Credentials = new NetworkCredential(email,senha );
                 // 3. Enviar
                     smtp.Send(mail);
-                    Console.WriteLine("E-mail enviado com sucesso!");
+                    UiService.AvisoUi("E-mail enviado com sucesso!");
             
             }
         }
         catch (NullEmailException)
         {
-            Console.WriteLine("Este contato não possui email");
+            UiService.ErroUi("Este contato não possui email");
         }
         catch (NullContatoException)
         {
-            Console.WriteLine("Este contato não esta registrado");
+            UiService.ErroUi("Este contato não esta registrado");
         }
         catch (FormatException)
         {
-            Console.WriteLine("O email não está no formato correto.");
+            UiService.ErroUi("O email não está no formato correto.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Erro ao enviar: " + ex.Message);
+            UiService.ErroUi("Erro ao enviar: " + ex.Message);
         }
     }
 }

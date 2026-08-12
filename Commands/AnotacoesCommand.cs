@@ -1,6 +1,7 @@
 using System.CommandLine;
 using Quaq.Interfaces;
 using Quaq.Services.Produtividade;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Commands;
 
@@ -23,7 +24,7 @@ public class AnotacoesCommand: IComando
 
             if(anotar is not null && lista)
             {
-                Console.WriteLine("Deve ter apenas um destino");
+                UiService.ErroUi("Deve ter apenas um destino");
                 return;
             }
 

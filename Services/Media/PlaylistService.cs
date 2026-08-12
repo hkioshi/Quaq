@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Services.Media
 {
@@ -18,7 +19,7 @@ namespace Quaq.Services.Media
 
             if(!Directory.Exists(pastaMusicas))
             {
-                Console.WriteLine($"{pasta} não existe");
+                UiService.ErroUi($"{pasta} não existe");
                 return;
             }
             var service = new AudioService();

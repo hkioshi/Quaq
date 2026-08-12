@@ -1,6 +1,7 @@
 using System.CommandLine;
 using Quaq.Interfaces;
 using Quaq.Services.Desenvolvimento;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Commands;
 public class NovoCommand: IComando
@@ -34,7 +35,7 @@ public class NovoCommand: IComando
 
             if(teste is not null && pessoal is not null)
             {
-                Console.WriteLine("Deve ter apenas um destino");
+                UiService.ErroUi("Deve ter apenas um destino");
                 return;
             }
 
@@ -42,23 +43,23 @@ public class NovoCommand: IComando
             {
                 if(api)
                 {
-                    NovoService.CriarNovoTesteApi(teste);
+                    NovoService.CriarNovo(teste,"webapi","Projetos_Testes");
                     return;
                 }
 
-                NovoService.CriarNovoTesteTerminal(teste);
+                NovoService.CriarNovo(teste,"console","Projetos_Testes");
             }
             
             if(pessoal is not null)
             {
                 if(api)
                 {
-                    NovoService.CriarNovoPessoalApi(pessoal);
+                    NovoService.CriarNovo(pessoal,"webapi","Projetos_Pessoais");
                     return;
 
                 }
 
-                NovoService.CriarNovoPessoalTerminal(pessoal);
+                NovoService.CriarNovo(pessoal,"console","Projetos_Pessoais");
             }
 
         });

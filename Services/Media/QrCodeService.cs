@@ -1,5 +1,6 @@
 
 using QRCoder;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Services.Media;
 
@@ -22,6 +23,6 @@ public class QrCodeService
 
         File.WriteAllBytes(caminho, png);
 
-        Console.WriteLine($"QR Code salvo em: {caminho}");
+        UiService.AvisoUi($"QR Code salvo em: {caminho}");
     }
 }

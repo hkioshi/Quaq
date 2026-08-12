@@ -16,11 +16,11 @@ public class ConfigService
     {
         if (string.IsNullOrWhiteSpace(nome))
         {
-            Console.WriteLine("Nome inválido");
+           UiService.ErroUi("Nome inválido");
             return;
         }
         config.DefinirNome(nome);
-        Console.WriteLine("Nome salvo!");
+        UiService.AvisoUi("Nome salvo!");
 
     }
     public static void ExibirNome()
@@ -28,23 +28,23 @@ public class ConfigService
         var nome = config.ExibirNome();
         if(nome is null)
         {
-            Console.WriteLine("Nome não registrado.");
+            UiService.ErroUi("Nome não registrado.");
             return;
         }
 
-        Console.WriteLine($"O seu nome é {nome}");
+        UiService.LinhaUi("Nome",$"O seu nome é {nome}");
     }
     public static void DefinirEmail(string email)
     {
      
         if(email is null)
         {
-            Console.WriteLine("Email vazio");
+            UiService.ErroUi("Email vazio");
             return;
         }
         if(!EmailService.ValidarEmail(email))
         {
-            Console.WriteLine("Formato de email não valido");
+            UiService.ErroUi("Formato de email não valido");
             return;
         }
         SenhaRepository repos = new();
@@ -53,7 +53,7 @@ public class ConfigService
         if(emailAntigo is null)
         {
             config.DefinirEmail(email);
-            Console.WriteLine("Email salvo!");
+            UiService.AvisoUi("Email salvo!");
             return;
         }
 
@@ -61,14 +61,14 @@ public class ConfigService
         if(senha is null)
         {
             config.DefinirEmail(email);
-            Console.WriteLine("Email salvo!");
+            UiService.AvisoUi("Email salvo!");
             return;
         }
 
         config.DefinirEmail(email);
         repos.RemoverSenha(emailAntigo);
         repos.SalvarSenha(email,senha);
-        Console.WriteLine("Email salvo!");
+        UiService.AvisoUi("Email salvo!");
         
     }
 
@@ -77,11 +77,11 @@ public class ConfigService
         var email = config.ExibirEmail();
         if(email is null)
         {
-            Console.WriteLine("Email não registrado.");
+            UiService.AvisoUi("Email não registrado.");
             return;
         }
 
-        Console.WriteLine($"O seu email é {email}");
+        UiService.LinhaUi("Email",$"O seu email é {email}");
     }
 
 
@@ -91,16 +91,16 @@ public class ConfigService
         var email = config.ExibirEmail();
         if(email is null)
         {
-            Console.WriteLine("Email não Definido");
+            UiService.ErroUi("Email não Definido");
             return;
         }
         var senha = repos.ExibirSenha(email);
         if(senha is null)
         {
-            Console.WriteLine("Senha não Definida");
+            UiService.ErroUi("Senha não Definida");
             return;
         }
-        Console.WriteLine(senha);
+        UiService.LinhaUi("Senha",senha);
     }
 
     internal static void DefinirSenha(string senha)
@@ -109,10 +109,11 @@ public class ConfigService
         var email = config.ExibirEmail();
         if(email is null)
         {
-            Console.WriteLine("Email não Definido");
+            UiService.ErroUi("Email não Definido");
             return;
         }
         repos.SalvarSenha(email, senha);
+        UiService.AvisoUi("Senha salva!");
 
     }
 
@@ -122,10 +123,11 @@ public class ConfigService
         var email = config.ExibirEmail();
         if(email is null)
         {
-            Console.WriteLine("Email não Definido");
+            UiService.ErroUi("Email não Definido");
             return;
         }
         repos.RemoverSenha(email);    
+        UiService.AvisoUi("Email Removido");
 
     }
 }

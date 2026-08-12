@@ -1,4 +1,6 @@
 
+using Quaq.Services.Sistema;
+
 namespace Quaq.Services.Internet;
 
 public class ConversorDeHorarioService
@@ -78,13 +80,13 @@ public class ConversorDeHorarioService
 
         if (!valido)
         {
-            Console.WriteLine("Formato invalido. Use HH:mm");
+            UiService.ErroUi("Formato invalido. Use HH:mm");
             return;
         }
 
         if (!fusos.ContainsKey(p1) || !fusos.ContainsKey(p2))
         {
-            Console.WriteLine("Pais nao encontrado.");
+            UiService.ErroUi("Pais nao encontrado.");
             return;
         }
 
@@ -92,6 +94,6 @@ public class ConversorDeHorarioService
 
         TimeOnly resultado = horaConvertida.AddHours(diferenca);
 
-        Console.WriteLine($"{p1} {hora} -> {p2} {resultado:HH:mm}");
+        UiService.LinhaUi("Resultado",$"{p1} {hora} -> {p2} {resultado:HH:mm}");
     }
 }

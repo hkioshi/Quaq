@@ -1,5 +1,6 @@
 
 using NCalc;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Services.Produtividade;
 public class CalculadoraService
@@ -8,8 +9,9 @@ public class CalculadoraService
     {
         Expression expr = new(calculo);
 
-        var resultado = expr.Evaluate();
+        object? resultado = expr.Evaluate();
+        if(resultado is not null)
+            UiService.LinhaUi("resultado",$"{resultado}"); 
 
-        Console.WriteLine(resultado); 
     }
 }

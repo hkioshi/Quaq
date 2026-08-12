@@ -1,6 +1,7 @@
 using System.CommandLine;
 using Quaq.Services.Internet;
 using Quaq.Interfaces;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Commands;
 
@@ -45,13 +46,13 @@ public class EmailCommand : IComando
 
             if (contato is null && email is null)
             {
-                Console.WriteLine("Destinatário não definido.");
+                UiService.ErroUi("Destinatário não definido.");
                 return;
             }
 
             if(titulo is null || corpo is null)
             {
-                Console.WriteLine("Conteudo do email invalido");
+                UiService.ErroUi("Conteudo do email invalido");
                 return;
             }
 

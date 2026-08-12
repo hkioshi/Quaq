@@ -85,3 +85,68 @@ Funcao fala da tela inicial
 QUAQ 1.6.0
 "Um passo de cada vez."
 ╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ QUAQ 1.6.1 — DEV LOG ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ALTERAÇÕES ]
+────────────────────────────────────────────────────────────
+
+novoService
+
+Simplificação das funções de criação de projetos.
+As funções foram unificadas em uma única função, permitindo
+criar diferentes tipos de projeto apenas alterando os argumentos.
+
+motivacaoService
+
+Unificação dos serviços Advice e Motivação em um único serviço:
+motivacaoService.
+
+O comando "adv" foi renomeado para "conselho".
+
+Novo layout
+
+Padronização da interface do terminal.
+
+Os Console.WriteLine utilizados pelos comandos foram substituídos
+pelo UiService, centralizando a apresentação das informações e
+mantendo um padrão visual único no Quaq.
+
+Foram adicionadas as seguintes funções:
+
+LinhaUi(titulo, texto)
+LinhaUi(texto)
+AvisoUi(texto)
+ErroUi(texto)
+ListaUi(titulo, linhas)
+
+O UiService permite criar caixas de informação, avisos, erros e
+listas com largura ajustada automaticamente de acordo com o conteúdo.
+
+[ COMANDOS ]
+────────────────────────────────────────────────────────────
+
+Comando renomeado:
+
+quaq conselho
+
+Substitui o antigo comando:
+
+quaq adv
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.1
+
+Unificação e simplificação da criação de projetos.
+Unificação dos serviços de Advice e Motivação.
+Padronização da interface do terminal.
+Criação do UiService para centralizar a interface.
+Renomeação do comando "adv" para "conselho".
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.1
+"Um passo de cada vez."

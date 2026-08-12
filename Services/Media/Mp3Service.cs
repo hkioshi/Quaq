@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Quaq.Services.Sistema;
 namespace Quaq.Services.Media;
 public class Mp3Service
 {
@@ -34,13 +35,13 @@ public class Mp3Service
         process.OutputDataReceived += (s, e) =>
         {
             if (e.Data != null)
-                Console.WriteLine(e.Data);
+                UiService.ErroUi(e.Data);
         };
 
         process.ErrorDataReceived += (s, e) =>
         {
             if (e.Data != null)
-                Console.WriteLine($"ERRO: {e.Data}");
+                UiService.ErroUi($"ERRO: {e.Data}");
         };
 
         process.Start();
@@ -50,6 +51,6 @@ public class Mp3Service
 
         process.WaitForExit();
 
-        Console.WriteLine("Música salva em: " + pastaMusicas);
+        UiService.AvisoUi("Música salva em: " + pastaMusicas);
     }
 }

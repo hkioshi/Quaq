@@ -1,20 +1,13 @@
 using System.Security.Principal;
 using Quaq.Repository;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Services.Produtividade;
 
 public class AnotacaoService
 {
 
-    public static void Titulo(string texto)
-    {
-        Console.Clear();
-
-        Console.WriteLine(new string('#', texto.Length + 4));
-        Console.WriteLine($"# {texto} #");
-        Console.WriteLine(new string('#', texto.Length + 4));
-        Console.WriteLine();
-    }
+    
     internal static void IniciarAnotacao(string nomeCaderno)
     {
         AnotacaoRepositorio repos = new("anotacoes.json");
@@ -30,12 +23,11 @@ public class AnotacaoService
             }
         };
 
-        
         while(true)
         {
-            Titulo($"Caderno {nomeCaderno}");
-            caderno.ForEach(a => Console.WriteLine($"> {a}"));
-            ann.ForEach(a => Console.WriteLine($"> {a}"));
+            UiService.LinhaUi("Anotação",$"Caderno {nomeCaderno}");
+            caderno.ForEach(a => Console.WriteLine($"# {a}"));
+            ann.ForEach(a => Console.WriteLine($"# {a}"));
             Console.Write("> ");
             
             var texto = Console.ReadLine();
@@ -43,18 +35,14 @@ public class AnotacaoService
             {
                 ann.Add(texto);
             }
-
         }
     }
 
     internal static void Listar()
     {
-        Titulo("Cadernos");
+        UiService.LinhaUi("Cadernos");
         AnotacaoRepositorio repos = new("anotacoes.json");
         var lista = repos.BuscarTodosCadernos() ?? [];
-        lista.ForEach(a => Console.WriteLine(a));
-
+        lista.ForEach(a => Console.WriteLine($" > {a}"));
     }
-
- 
 }

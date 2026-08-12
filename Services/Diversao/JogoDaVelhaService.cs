@@ -1,15 +1,10 @@
+using Quaq.Services.Sistema;
+
 namespace Quaq.Services.Diversao;
 public class JogoDaVelhaService
 {
 
-    public static void Titulo(string texto)
-    {
-        Console.Clear();
-
-        Console.WriteLine(new string('#', texto.Length + 4));
-        Console.WriteLine($"# {texto} #");
-        Console.WriteLine(new string('#', texto.Length + 4));
-    }
+   
     static bool VerificarVitoria(string[,] tabuleiro, string jogador)
     {
         // Linhas
@@ -61,19 +56,20 @@ public class JogoDaVelhaService
 
         while (true)
         {
-            Titulo("Jogo Da Velha");
-
-            Console.WriteLine($"{tabuleiro[0,0]} | {tabuleiro[0,1]} | {tabuleiro[0,2]}");
-            Console.WriteLine("---+---+---");
-            Console.WriteLine($"{tabuleiro[1,0]} | {tabuleiro[1,1]} | {tabuleiro[1,2]}");
-            Console.WriteLine("---+---+---");
-            Console.WriteLine($"{tabuleiro[2,0]} | {tabuleiro[2,1]} | {tabuleiro[2,2]}");
-            Console.WriteLine();
+            UiService.ListaUi("Jogo Da Velha",
+                [
+                    $"  {tabuleiro[0,0]} | {tabuleiro[0,1]} | {tabuleiro[0,2]}",
+                    "  ---+---+---",
+                    $"  {tabuleiro[1,0]} | {tabuleiro[1,1]} | {tabuleiro[1,2]}",
+                    "  ---+---+---",
+                    $"  {tabuleiro[2,0]} | {tabuleiro[2,1]} | {tabuleiro[2,2]}"
+                ]
+            );
 
             string jogador = vez ? "O" : "X";
 
-            Console.WriteLine($"Vez do jogador {jogador}");
-            Console.Write("Escolha uma casa (1-9): ");
+            Console.WriteLine($" Vez do jogador {jogador}");
+            Console.Write(" Escolha uma casa (1-9): ");
 
             string? entrada = Console.ReadLine();
 
@@ -100,23 +96,25 @@ public class JogoDaVelhaService
 
             if (VerificarVitoria(tabuleiro, jogador))
             {
-                Titulo("🎉 VITÓRIA! 🎉");
+                UiService.ListaUi("🎉 VITÓRIA! 🎉",
+                [
+                   $"   PARABÉNS JOGADOR {jogador}", 
+                   "        VOCÊ VENCEU!"
+                ]
+                );
+
+                UiService.ListaUi("Jogo Da Velha",
+                    [
+                        $" {tabuleiro[0,0]} | {tabuleiro[0,1]} | {tabuleiro[0,2]}",
+                        " ---+---+---",
+                        $" {tabuleiro[1,0]} | {tabuleiro[1,1]} | {tabuleiro[1,2]}",
+                        " ---+---+---",
+                        $" {tabuleiro[2,0]} | {tabuleiro[2,1]} | {tabuleiro[2,2]}"
+                    ]
+                );
 
                 Console.WriteLine();
-                Console.WriteLine("*****************************");
-                Console.WriteLine($"   PARABÉNS JOGADOR {jogador}");
-                Console.WriteLine("        VOCÊ VENCEU!");
-                Console.WriteLine("*****************************");
-                Console.WriteLine();
-
-                Console.WriteLine($"{tabuleiro[0,0]} | {tabuleiro[0,1]} | {tabuleiro[0,2]}");
-                Console.WriteLine("---+---+---");
-                Console.WriteLine($"{tabuleiro[1,0]} | {tabuleiro[1,1]} | {tabuleiro[1,2]}");
-                Console.WriteLine("---+---+---");
-                Console.WriteLine($"{tabuleiro[2,0]} | {tabuleiro[2,1]} | {tabuleiro[2,2]}");
-
-                Console.WriteLine();
-                Console.WriteLine("Pressione qualquer tecla...");
+                UiService.AvisoUi("Pressione qualquer tecla...");
                 Console.ReadKey();
                 return;
             }
@@ -124,19 +122,18 @@ public class JogoDaVelhaService
             // Empate
             if (jogadas == 9)
             {
-                Titulo("EMPATE");
-
-                Console.WriteLine("Ninguém venceu desta vez.");
+                UiService.ListaUi("Jogo Da Velha",
+                    [
+                        $" {tabuleiro[0,0]} | {tabuleiro[0,1]} | {tabuleiro[0,2]}",
+                        " ---+---+---",
+                        $" {tabuleiro[1,0]} | {tabuleiro[1,1]} | {tabuleiro[1,2]}",
+                        " ---+---+---",
+                        $" {tabuleiro[2,0]} | {tabuleiro[2,1]} | {tabuleiro[2,2]}"
+                    ]
+                );
 
                 Console.WriteLine();
-                Console.WriteLine($"{tabuleiro[0,0]} | {tabuleiro[0,1]} | {tabuleiro[0,2]}");
-                Console.WriteLine("---+---+---");
-                Console.WriteLine($"{tabuleiro[1,0]} | {tabuleiro[1,1]} | {tabuleiro[1,2]}");
-                Console.WriteLine("---+---+---");
-                Console.WriteLine($"{tabuleiro[2,0]} | {tabuleiro[2,1]} | {tabuleiro[2,2]}");
-
-                Console.WriteLine();
-                Console.WriteLine("Pressione qualquer tecla...");
+                UiService.AvisoUi("Pressione qualquer tecla...");
                 Console.ReadKey();
                 return;
             }

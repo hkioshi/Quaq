@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Quaq.Services.Sistema;
 namespace Quaq.Repository;
 
 public class ProjetosRepositorio : Repositorio
@@ -26,16 +27,16 @@ public class ProjetosRepositorio : Repositorio
         var projs = ExibirTodosProjetos();
             if(projs.ContainsKey(v))
             {
-                Console.WriteLine("contato encontrado, quer mesmo deletar (y/n)");
+                UiService.AvisoUi("contato encontrado, quer mesmo deletar (y/n)");
                 ConsoleKeyInfo tecla = Console.ReadKey();
 
                 if (tecla.Key == ConsoleKey.Y)
                 {
                     projs.Remove(v);
-                    Console.WriteLine("\nDeletado com sucesso");
+                    UiService.AvisoUi("\nDeletado com sucesso");
                 }
                 else
-                    Console.WriteLine("\nCancelado.");
+                    UiService.AvisoUi("\nCancelado.");
                 
             }
             string texto = JsonSerializer.Serialize(projs, new JsonSerializerOptions
