@@ -10,7 +10,6 @@ public class EmailCommand : IComando
     public Command Get()
     {
         
-        var emailCmd = new Command("email", "Enviador de e-mail");
 
         var contatoOp = new Option<string>("-c", "--contato", "contato")
         {
@@ -31,11 +30,13 @@ public class EmailCommand : IComando
         {
             Description = "Corpo do e-mail"
         };
-
-        emailCmd.Add(contatoOp);
-        emailCmd.Add(emailArg);
-        emailCmd.Add(tituloArg);
-        emailCmd.Add(corpoArg);
+        var emailCmd = new Command("email", "Enviador de e-mail")
+        {
+            contatoOp,
+            emailArg,
+            tituloArg,
+            corpoArg
+        };
 
         emailCmd.SetAction(pr =>
         {
@@ -44,30 +45,34 @@ public class EmailCommand : IComando
             var titulo = pr.GetValue(tituloArg);
             var corpo = pr.GetValue(corpoArg);
 
-            if (contato is null && email is null)
+            if (string.IsNullOrWhiteSpace(contato) &&
+                string.IsNullOrWhiteSpace(email))
             {
                 UiService.ErroUi("Destinatário não definido.");
                 return;
             }
 
-            if(titulo is null || corpo is null)
+            if (!string.IsNullOrWhiteSpace(contato) &&
+                !string.IsNullOrWhiteSpace(email))
             {
-                UiService.ErroUi("Conteudo do email invalido");
+                UiService.ErroUi("Use contato ou e-mail, não os dois.");
                 return;
             }
 
-            if (contato is not null )
+            if (string.IsNullOrWhiteSpace(titulo) ||
+                string.IsNullOrWhiteSpace(corpo))
             {
-                EmailService.EnviarEmailComContato(contato, titulo, corpo!);
-                return;
-            }
-            
-            if (email is not null)
-            {
-                EmailService.EnviarEmail(email!, titulo!, corpo!);
+                UiService.ErroUi("Conteúdo do e-mail inválido.");
                 return;
             }
 
+            if (!string.IsNullOrWhiteSpace(contato))
+            {
+                EmailService.EnviarEmailComContato(contato, titulo, corpo);
+                return;
+            }
+
+            EmailService.EnviarEmail(email!, titulo, corpo);
         });
 
         return emailCmd;

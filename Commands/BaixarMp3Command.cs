@@ -4,11 +4,10 @@ using Quaq.Services.Media;
 
 namespace Quaq.Commands;
 
-public class MP3Command : IComando
+public class BaixarMp3Command : IComando
 {
     public Command Get()
     {
-        var mp3Cmd = new Command("mp3", "Gereciador de mp3");
 
         var urlArg = new Argument<string>("url")
         {
@@ -19,9 +18,11 @@ public class MP3Command : IComando
         {
             Description = "Salvar na playlist"
         };
-
-        mp3Cmd.Add(urlArg);
-        mp3Cmd.Add(saveArg);
+        var mp3Cmd = new Command("baixarmp3", "Baixa vídeos do YouTube como MP3")
+        {
+            urlArg,
+            saveArg
+        };
 
         mp3Cmd.SetAction(pr =>
         {
@@ -33,7 +34,6 @@ public class MP3Command : IComando
                 Mp3Service.BaixarMp3(url, playlist);
             }
                 
-            
         });
 
         

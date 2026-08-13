@@ -8,7 +8,7 @@ public class CaluladoraCommand : IComando
 {
     public Command Get()
     {
-       var calculoCmd = new Command("calc", "Calculadora");
+       var calculoCmd = new Command("calculo", "Calculadora");
 
         var contaArg = new Argument<string>("conta")
         {

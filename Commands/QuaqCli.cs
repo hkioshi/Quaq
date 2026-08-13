@@ -21,7 +21,7 @@ public class QuaqCli
                 Description = "Mostra informações de ajuda"
             });
         root.Add(
-            new VersionOption("--version", "-v")
+            new VersionOption("--versao", "-v", "--version")
             {
                 Description = "Mostra a versão do quaq"
             });

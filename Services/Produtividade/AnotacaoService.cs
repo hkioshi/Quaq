@@ -25,6 +25,7 @@ public class AnotacaoService
 
         while(true)
         {
+            Console.Clear();
             UiService.LinhaUi("Anotação",$"Caderno {nomeCaderno}");
             caderno.ForEach(a => Console.WriteLine($"# {a}"));
             ann.ForEach(a => Console.WriteLine($"# {a}"));
@@ -38,7 +39,7 @@ public class AnotacaoService
         }
     }
 
-    internal static void Listar()
+    internal static void ListarCadernos()
     {
         UiService.LinhaUi("Cadernos");
         AnotacaoRepositorio repos = new("anotacoes.json");

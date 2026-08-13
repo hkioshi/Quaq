@@ -150,3 +150,80 @@ Renomeação do comando "adv" para "conselho".
 ────────────────────────────────────────────────────────────
 QUAQ 1.6.1
 "Um passo de cada vez."
+
+╔══════════════════════════════════════════════════════════════╗
+║ QUAQ 1.6.2 — DEV LOG ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ALTERAÇÕES ]
+────────────────────────────────────────────────────────────
+
+Alteração e padronização dos comandos do Quaq, priorizando nomes
+mais claros e intuitivos.
+
+O comando "conselho" foi corrigido e reorganizado:
+
+quaq conscelho
+
+passou a ser:
+
+quaq concelho
+quaq motivacao
+
+O comando "mp3" foi renomeado para:
+
+quaq baixarmp3
+
+O comando "run" foi renomeado para:
+
+quaq rodar
+
+Vários comandos tiveram suas options substituídas por comandos,
+buscando uma interface mais clara e fácil de entender.
+
+[ MELHORIAS ]
+────────────────────────────────────────────────────────────
+
+Padronização da interface dos comandos.
+Redução da dependência de options para ações que representam
+comportamentos diferentes.
+Comandos passaram a utilizar nomes mais descritivos, facilitando
+a compreensão e o uso do Quaq.
+
+[ CORREÇÕES ]
+────────────────────────────────────────────────────────────
+
+Corrigido o problema de caixas da interface que não eram fechadas
+corretamente ao utilizar caracteres de largura dupla.
+Corrigido o problema que impedia a exclusão correta de uma
+anotação anterior.
+
+[ COMANDOS ]
+────────────────────────────────────────────────────────────
+
+Comando renomeado:
+
+quaq baixarmp3
+
+Comando renomeado:
+
+quaq rodar
+
+Comandos adicionados a partir da reorganização do conselho:
+
+quaq concelho
+quaq motivacao
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.2
+
+Padronização e reorganização dos comandos.
+Substituição de options por comandos em diversas funcionalidades.
+Correção de problemas na interface com caracteres de largura dupla.
+Correção da exclusão de anotações anteriores.
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.2
+"Um passo de cada vez."

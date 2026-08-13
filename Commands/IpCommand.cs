@@ -9,13 +9,7 @@ public class IpCommand : IComando
     public Command Get()
     {
         var ipCmd = new Command("ip", "Descobre o ip");
-
-
-        ipCmd.SetAction(parseResult =>
-        {
-            IpService.MostrarIpLocal();
-        });
-
+        ipCmd.SetAction(_ => IpService.MostrarIpLocal());
         return ipCmd;
     }
 }

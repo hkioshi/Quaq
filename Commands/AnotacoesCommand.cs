@@ -7,41 +7,48 @@ namespace Quaq.Commands;
 
 public class AnotacoesCommand: IComando
 {
-    public Command Get()
+    private static Command CriarAnotarCommand()
     {
-        var AnotarOP = new Option<string>("-a", "--anotar");
-        var ListaOp = new  Option<bool>("ls", "lista");
-        var AnotacaoCmd = new Command("anotacao", "Anotações")
+        var nomeArg = new Argument<string>("Caderno")
         {
-            ListaOp,
-            AnotarOP
+            Description = "Nome do Caderno"
         };
-        
-        AnotacaoCmd.SetAction(pr =>
-        {
-            var lista = pr.GetValue(ListaOp);
-            var anotar = pr.GetValue(AnotarOP);
 
-            if(anotar is not null && lista)
+        var cmd = new Command("anotar", "Abre o terminal de um projeto salvo")
+        {
+            nomeArg
+        };
+
+        cmd.SetAction(pr =>
+        {
+            var nome = pr.GetValue(nomeArg);
+            if(nome is null)
             {
-                UiService.ErroUi("Deve ter apenas um destino");
+                UiService.ErroUi("Deve ter nome do caderno.");
                 return;
             }
-
-            if(lista )
-            {
-               AnotacaoService.Listar();
-               return;
-            }
-            
-
-            if(anotar is not null)
-            {
-                AnotacaoService.IniciarAnotacao(anotar);
-               return;
-            }
+            AnotacaoService.IniciarAnotacao(nome);
         });
 
-        return AnotacaoCmd;
+        return cmd;
     }
+    private static Command CriarListaCommand()
+    {
+        var cmd = new Command("lista", "Abre o terminal de um projeto salvo");
+        cmd.SetAction(pr =>
+        {
+            AnotacaoService.ListarCadernos();
+        });
+
+        return cmd;
+    }
+
+    public Command Get() =>
+        new Command("anotacao", "Anotações")
+        {
+            CriarAnotarCommand(),
+            CriarListaCommand()
+        };
+
+    
 }

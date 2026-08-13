@@ -6,66 +6,83 @@ using Quaq.Services.Sistema;
 namespace Quaq.Commands;
 public class NovoCommand: IComando
 {
-    public Command Get()
+    private static Command CriarNovoTesteCommand()
     {
-        var NovoCmd = new Command("novo", "Novo Projeto c#");
-
-        var TesteOp = new Option<string>("-t","--teste","teste")
+        var nomeArg = new Argument<string>("Nome")
         {
-            Description = "Cria Projeto Teste"
+            Description = "Nome do Projeto."
         };
-
-        var PessoalOp = new Option<string>("-p", "--pessoal", "pessoal")
+        var cmd = new Command("teste", "Cria projeto teste")
         {
-            Description = "Cria Projeto pessoal"
+            nomeArg
         };
-
         var webApiOp = new Option<bool>("-api")
         {
             Description = "Cria Projeto WebApi"
         };
-        NovoCmd.Add(PessoalOp);
-        NovoCmd.Add(TesteOp);
-        NovoCmd.Add(webApiOp);
-        NovoCmd.SetAction(pr =>
+        cmd.SetAction(pr =>
         {
-            var pessoal = pr.GetValue(PessoalOp);
-            var teste = pr.GetValue(TesteOp);
+            var nome = pr.GetValue(nomeArg);
             var api = pr.GetValue(webApiOp);
 
-            if(teste is not null && pessoal is not null)
+            if(nome is null)
             {
-                UiService.ErroUi("Deve ter apenas um destino");
+                UiService.ErroUi("Nome deve ser informado");
                 return;
             }
 
-            if(teste is not null)
+            if(api)
             {
-                if(api)
-                {
-                    NovoService.CriarNovo(teste,"webapi","Projetos_Testes");
-                    return;
-                }
-
-                NovoService.CriarNovo(teste,"console","Projetos_Testes");
-            }
-            
-            if(pessoal is not null)
-            {
-                if(api)
-                {
-                    NovoService.CriarNovo(pessoal,"webapi","Projetos_Pessoais");
-                    return;
-
-                }
-
-                NovoService.CriarNovo(pessoal,"console","Projetos_Pessoais");
+                NovoService.CriarNovo(nome,"webapi","Projetos_Testes");
+                return;
             }
 
+            NovoService.CriarNovo(nome,"console","Projetos_Testes");
         });
-
-        return NovoCmd;
+        return cmd;
     }
+    private static Command CriarNovoPessoalCommand()
+    {
+        var nomeArg = new Argument<string>("Nome")
+        {
+            Description = "Nome do Projeto."
+        };
+        var cmd = new Command("teste", "Cria projeto pessoal")
+        {
+            nomeArg
+        };
+        var webApiOp = new Option<bool>("-api")
+        {
+            Description = "Cria Projeto WebApi"
+        };
+        cmd.SetAction(pr =>
+        {
+            var nome = pr.GetValue(nomeArg);
+            var api = pr.GetValue(webApiOp);
+
+            if(nome is null)
+            {
+                UiService.ErroUi("Nome deve ser informado");
+                return;
+            }
+
+            if(api)
+            {
+                NovoService.CriarNovo(nome,"webapi","Projetos_Pessoais");
+                return;
+            }
+
+            NovoService.CriarNovo(nome,"console","Projetos_Pessoais");
+        });
+        return cmd;
+    }
+    public Command Get() =>
+        new Command("novo", "Novo Projeto c#")
+        {
+            CriarNovoPessoalCommand(),
+            CriarNovoTesteCommand()
+        };
+    
 
 
 }

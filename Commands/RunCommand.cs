@@ -8,11 +8,8 @@ public class RunCommand : IComando
 {
     public Command Get()
     {
-        var runCmd = new Command("run", "Roda qualquer programa com arquivo de projeto");
-        runCmd.SetAction(act =>
-        {
-            RunService.Run();
-        });
+        var runCmd = new Command("rodar", "Roda qualquer programa com arquivo de projeto");
+        runCmd.SetAction(act => RunService.Run());
         return runCmd;
     }
 }

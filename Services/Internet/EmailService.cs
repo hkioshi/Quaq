@@ -72,8 +72,7 @@ public class EmailService
         try
         {
             MailMessage mail = new MailMessage();
-            ContatoService service = new();
-            Infos? contato = service.BuscarContato(nome);
+            Infos? contato = ContatoService.BuscarContato(nome);
             if(contato is null)
                 throw new NullContatoException();
             if(contato.Email is null)

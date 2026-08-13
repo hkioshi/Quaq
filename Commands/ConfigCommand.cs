@@ -1,106 +1,141 @@
 using System.CommandLine;
-using System.Runtime.ConstrainedExecution;
 using Quaq.Interfaces;
-using Quaq.Repository;
 using Quaq.Services.Sistema;
 
 namespace Quaq.Commands;
 
-public class ConfigCommand: IComando
+public class ConfigCommand : IComando
 {
-    public Command Get()
-    {
-        var ConfigCmd = new Command("config", "configurar nome, email e senha")
+    public Command Get() =>
+        new Command("config", "Configurar nome, email e senha")
         {
             CriarEmailCommand(),
+            CriarDefEmailCommand(),
+
             CriarNomeCommand(),
-            CriarSenhaCommand()
+            CriarDefNomeCommand(),
+
+            CriarSenhaCommand(),
+            CriarDefSenhaCommand()
         };
-    
-        return ConfigCmd;
-    }
 
     private static Command CriarEmailCommand()
     {
-        var op = new Option<string>("-d", "--def", "definir")
-        {
-            Description = "Definir uma email"
-        };
-        var cmd = new Command("email", "Definição ou Exibição do Email")
-        {
-            op
-        };
+        var cmd = new Command(
+            "email",
+            "Exibir o email configurado"
+        );
 
-        cmd.SetAction(a =>
-        {  
-            var email = a.GetValue(op);
-            if(email is null)
-                ConfigService.ExibirEmail();
-            else
-                ConfigService.DefinirEmail(email);
+        cmd.SetAction(_ =>
+        {
+            ConfigService.ExibirEmail();
         });
 
         return cmd;
     }
+
+    private static Command CriarDefEmailCommand()
+    {
+        var arg = new Argument<string>("email")
+        {
+            Description = "Email que será configurado"
+        };
+
+        var cmd = new Command(
+            "defemail",
+            "Definir o email"
+        )
+        {
+            arg
+        };
+
+        cmd.SetAction(parseResult =>
+        {
+            var email = parseResult.GetValue(arg)!;
+
+            ConfigService.DefinirEmail(email);
+        });
+
+        return cmd;
+    }
+
     private static Command CriarNomeCommand()
     {
-        var op = new Option<string>("-d", "--def", "definir")
-        {
-            Description = "Definir um nome"
-        };
-        var cmd = new Command("nome", "Definição ou Exibição do Nome")
-        {
-            op
-        };
+        var cmd = new Command(
+            "nome",
+            "Exibir o nome configurado"
+        );
 
-        cmd.SetAction(a =>
-        {  
-            var email = a.GetValue(op);
-            if(email is null)
-                ConfigService.ExibirNome();
-            else
-                ConfigService.DefinirNome(email);
+        cmd.SetAction(_ =>
+        {
+            ConfigService.ExibirNome();
         });
 
         return cmd;
     }
+
+    private static Command CriarDefNomeCommand()
+    {
+        var arg = new Argument<string>("nome")
+        {
+            Description = "Nome que será configurado"
+        };
+
+        var cmd = new Command(
+            "defnome",
+            "Definir o nome"
+        )
+        {
+            arg
+        };
+
+        cmd.SetAction(parseResult =>
+        {
+            var nome = parseResult.GetValue(arg)!;
+
+            ConfigService.DefinirNome(nome);
+        });
+
+        return cmd;
+    }
+
     private static Command CriarSenhaCommand()
     {
-        var Defop = new Option<string>("-d", "--def", "definir")
+        var cmd = new Command(
+            "senha",
+            "Exibir a senha configurada"
+        );
+
+        cmd.SetAction(_ =>
         {
-            Description = "Definir uma senha"
-        };
-
-        var Removeop = new Option<bool>("-r", "--remover", "remover")
-        {
-            Description = "Remove uma senha"
-        };
-
-        var cmd = new Command("senha", "Definição, Exibição, Remoção de Senha")
-        {
-            Defop,
-            Removeop
-        };
-
-        cmd.SetAction(a =>
-        {  
-            
-            var senha = a.GetValue(Defop);
-            var Remove = a.GetValue(Removeop);
-
-            if(Remove)
-            {
-                ConfigService.RemoverSenha();
-            }
-
-            if(senha is null)
-                ConfigService.ExibirSenha();
-            else
-                ConfigService.DefinirSenha(senha);
+            ConfigService.ExibirSenha();
         });
 
         return cmd;
     }
 
-    
+    private static Command CriarDefSenhaCommand()
+    {
+        var arg = new Argument<string>("senha")
+        {
+            Description = "Senha que será configurada"
+        };
+
+        var cmd = new Command(
+            "defsenha",
+            "Definir a senha"
+        )
+        {
+            arg
+        };
+
+        cmd.SetAction(parseResult =>
+        {
+            var senha = parseResult.GetValue(arg)!;
+
+            ConfigService.DefinirSenha(senha);
+        });
+
+        return cmd;
+    }
 }

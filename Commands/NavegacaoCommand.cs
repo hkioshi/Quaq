@@ -8,7 +8,6 @@ public class NavegacaoCommand : IComando
 {
     public Command Get()
     {
-        var navCmd = new Command("nav", "Navegar na Internet");
 
         var urlArg = new Argument<string?>("url")
         {
@@ -20,9 +19,13 @@ public class NavegacaoCommand : IComando
         {
             Description = "Modo anônimo"
         };
+        
+        var navCmd = new Command("nav", "Navegar na Internet")
+        {
+            urlArg,
+            anonOp
+        };
 
-        navCmd.Add(urlArg);
-        navCmd.Add(anonOp);
 
         navCmd.SetAction(pr =>
         {
