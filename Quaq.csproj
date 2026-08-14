@@ -6,7 +6,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.6.2</Version>
+    <Version>1.6.3</Version>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 
   </PropertyGroup>
@@ -16,10 +16,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetEnv" Version="3.2.0" />
     <PackageReference Include="GnomeStack.Secrets.OperatingSystem" Version="0.1.6" />
     <PackageReference Include="NCalc" Version="7.0.1" />
     <PackageReference Include="QRCoder" Version="1.8.0" />
+    <PackageReference Include="Spectre.Console" Version="0.57.2" />
     <PackageReference Include="System.CommandLine" Version="2.0.10" />
   </ItemGroup>
 

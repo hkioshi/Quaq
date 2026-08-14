@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Quaq.Repository;
 using Quaq.Services.Internet;
 
@@ -20,7 +16,7 @@ public class ConfigService
             return;
         }
         config.DefinirNome(nome);
-        UiService.AvisoUi("Nome salvo!");
+        UiService.OkUi("Nome salvo!");
 
     }
     public static void ExibirNome()
@@ -53,7 +49,7 @@ public class ConfigService
         if(emailAntigo is null)
         {
             config.DefinirEmail(email);
-            UiService.AvisoUi("Email salvo!");
+            UiService.OkUi("Email salvo!");
             return;
         }
 
@@ -61,14 +57,14 @@ public class ConfigService
         if(senha is null)
         {
             config.DefinirEmail(email);
-            UiService.AvisoUi("Email salvo!");
+            UiService.OkUi("Email salvo!");
             return;
         }
 
         config.DefinirEmail(email);
         repos.RemoverSenha(emailAntigo);
         repos.SalvarSenha(email,senha);
-        UiService.AvisoUi("Email salvo!");
+        UiService.OkUi("Email salvo!");
         
     }
 
@@ -113,7 +109,7 @@ public class ConfigService
             return;
         }
         repos.SalvarSenha(email, senha);
-        UiService.AvisoUi("Senha salva!");
+        UiService.OkUi("Senha salva!");
 
     }
 
@@ -127,7 +123,7 @@ public class ConfigService
             return;
         }
         repos.RemoverSenha(email);    
-        UiService.AvisoUi("Email Removido");
+        UiService.OkUi("Email Removido");
 
     }
 }

@@ -51,6 +51,6 @@ public class Mp3Service
 
         process.WaitForExit();
 
-        UiService.AvisoUi("Música salva em: " + pastaMusicas);
+        UiService.OkUi("Música salva em: " + pastaMusicas);
     }
 }

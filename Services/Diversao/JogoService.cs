@@ -20,7 +20,7 @@ public class JogoService
                 CreateNoWindow = true
             }
         };
-        UiService.AvisoUi("Abrindo...");
+        UiService.OkUi("Abrindo...");
         processo.Start();
 
         _ = processo.StandardOutput.ReadToEndAsync();

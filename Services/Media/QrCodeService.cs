@@ -23,6 +23,6 @@ public class QrCodeService
 
         File.WriteAllBytes(caminho, png);
 
-        UiService.AvisoUi($"QR Code salvo em: {caminho}");
+        UiService.OkUi($"QR Code salvo em: {caminho}");
     }
 }

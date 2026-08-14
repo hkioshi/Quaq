@@ -6,26 +6,14 @@ using Quaq.Services.Sistema;
 namespace Quaq.Commands;
 public class NovoCommand: IComando
 {
-    private static Command CriarNovoTesteCommand()
+    private static void CriarProjeto(
+        string? nome, 
+        string pasta, 
+        bool api,
+        bool py,
+        bool rust)
     {
-        var nomeArg = new Argument<string>("Nome")
-        {
-            Description = "Nome do Projeto."
-        };
-        var cmd = new Command("teste", "Cria projeto teste")
-        {
-            nomeArg
-        };
-        var webApiOp = new Option<bool>("-api")
-        {
-            Description = "Cria Projeto WebApi"
-        };
-        cmd.SetAction(pr =>
-        {
-            var nome = pr.GetValue(nomeArg);
-            var api = pr.GetValue(webApiOp);
-
-            if(nome is null)
+        if(nome is null)
             {
                 UiService.ErroUi("Nome deve ser informado");
                 return;
@@ -33,12 +21,56 @@ public class NovoCommand: IComando
 
             if(api)
             {
-                NovoService.CriarNovo(nome,"webapi","Projetos_Testes");
+                NovoService.CriarNovo(nome,"webapi",pasta);
                 return;
             }
 
-            NovoService.CriarNovo(nome,"console","Projetos_Testes");
-        });
+            if(py)
+            {
+                NovoService.CriarNovoPy(nome,pasta);
+                return;
+            }
+             if(rust)
+            {
+                NovoService.CriarNovoRust(nome,pasta);
+                return;
+            }
+            NovoService.CriarNovo(nome,"console",pasta);
+    }
+    
+    private static Command CriarNovoTesteCommand()
+    {
+        var nomeArg = new Argument<string>("Nome")
+        {
+            Description = "Nome do Projeto."
+        };
+        var webApiOp = new Option<bool>("-api")
+        {
+            Description = "Cria Projeto WebApi"
+        };
+        var pyOp = new Option<bool>("-py")
+        {
+            Description = "Cria Projeto py"
+        };
+        var rustOp = new Option<bool>("-rust")
+        {
+            Description = "Cria Projeto rust"
+        };
+        var cmd = new Command("teste", "Cria projeto teste")
+        {
+            nomeArg,
+            webApiOp,
+            pyOp,
+            rustOp
+        };
+        
+        cmd.SetAction(pr =>
+            CriarProjeto(
+                    pr.GetValue(nomeArg),
+                    "Projetos_Testes",
+                    pr.GetValue(webApiOp),
+                    pr.GetValue(pyOp),
+                    pr.GetValue(rustOp)));
         return cmd;
     }
     private static Command CriarNovoPessoalCommand()
@@ -47,37 +79,37 @@ public class NovoCommand: IComando
         {
             Description = "Nome do Projeto."
         };
-        var cmd = new Command("teste", "Cria projeto pessoal")
-        {
-            nomeArg
-        };
         var webApiOp = new Option<bool>("-api")
         {
             Description = "Cria Projeto WebApi"
         };
-        cmd.SetAction(pr =>
+        var pyOp = new Option<bool>("-py")
         {
-            var nome = pr.GetValue(nomeArg);
-            var api = pr.GetValue(webApiOp);
-
-            if(nome is null)
-            {
-                UiService.ErroUi("Nome deve ser informado");
-                return;
-            }
-
-            if(api)
-            {
-                NovoService.CriarNovo(nome,"webapi","Projetos_Pessoais");
-                return;
-            }
-
-            NovoService.CriarNovo(nome,"console","Projetos_Pessoais");
-        });
+            Description = "Cria Projeto py"
+        };
+        var rustOp = new Option<bool>("-rust")
+        {
+            Description = "Cria Projeto rust"
+        };
+        var cmd = new Command("pessoal", "Cria projeto pessoal")
+        {
+            nomeArg,
+            webApiOp,
+            pyOp,
+            rustOp
+        };
+        cmd.SetAction(pr =>
+            CriarProjeto(
+                pr.GetValue(nomeArg),
+                "Projetos_Pessoais",
+                pr.GetValue(webApiOp),
+                pr.GetValue(pyOp),
+                pr.GetValue(rustOp))
+        );
         return cmd;
     }
     public Command Get() =>
-        new Command("novo", "Novo Projeto c#")
+        new Command("novo", "Novo Projeto")
         {
             CriarNovoPessoalCommand(),
             CriarNovoTesteCommand()

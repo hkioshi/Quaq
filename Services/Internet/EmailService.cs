@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Mail;
-using DotNetEnv;
 using Quaq.Data;
 using Quaq.Repository;
 using Quaq.Services.Sistema;
@@ -15,7 +14,6 @@ public class EmailService
         try
         {
             MailMessage mail = new MailMessage();
-            Env.Load();
             string? senha = Environment.GetEnvironmentVariable("SENHAEMAIL");
             string? email = Environment.GetEnvironmentVariable("EMAIL");
                 
@@ -34,7 +32,7 @@ public class EmailService
                 smtp.Credentials = new NetworkCredential(email,senha );
                 // 3. Enviar
                     smtp.Send(mail);
-                    UiService.AvisoUi("E-mail enviado com sucesso!");
+                    UiService.OkUi("E-mail enviado com sucesso!");
             
             }
         }
@@ -82,14 +80,14 @@ public class EmailService
             string? email = emailRepos.ExibirEmail();
             if(email is null)
             {
-                UiService.AvisoUi("Email nao definido, use quaq config email -d {Escreva seu email aq}");
+                UiService.ErroUi("Email nao definido, use quaq config email -d {Escreva seu email aq}");
                 return;
             }
 
             string? senha = senhaRepos.ExibirSenha(email);
             if(senha is null)
             {
-                UiService.AvisoUi("Senha nao definida, use quaq config senha -d {Escreva sua senha aq entre aspas}");
+                UiService.ErroUi("Senha nao definida, use quaq config senha -d {Escreva sua senha aq entre aspas}");
                 return;
             }
                 
@@ -106,7 +104,7 @@ public class EmailService
                 smtp.Credentials = new NetworkCredential(email,senha );
                 // 3. Enviar
                     smtp.Send(mail);
-                    UiService.AvisoUi("E-mail enviado com sucesso!");
+                    UiService.OkUi("E-mail enviado com sucesso!");
             
             }
         }

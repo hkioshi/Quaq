@@ -96,7 +96,7 @@ public class ProjetoService
     internal void SalvarProjeto(string v)
     {
         repos.SalvarProjeto(v, Directory.GetCurrentDirectory());
-        UiService.AvisoUi("Projeto Salvo");
+        UiService.OkUi("Projeto Salvo");
     }
 
     

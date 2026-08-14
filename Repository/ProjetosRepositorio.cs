@@ -27,16 +27,16 @@ public class ProjetosRepositorio : Repositorio
         var projs = ExibirTodosProjetos();
             if(projs.ContainsKey(v))
             {
-                UiService.AvisoUi("contato encontrado, quer mesmo deletar (y/n)");
+                UiService.OkUi("contato encontrado, quer mesmo deletar (y/n)");
                 ConsoleKeyInfo tecla = Console.ReadKey();
 
                 if (tecla.Key == ConsoleKey.Y)
                 {
                     projs.Remove(v);
-                    UiService.AvisoUi("\nDeletado com sucesso");
+                    UiService.OkUi("\nDeletado com sucesso");
                 }
                 else
-                    UiService.AvisoUi("\nCancelado.");
+                    UiService.OkUi("\nCancelado.");
                 
             }
             string texto = JsonSerializer.Serialize(projs, new JsonSerializerOptions

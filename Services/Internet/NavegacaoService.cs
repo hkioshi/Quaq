@@ -19,7 +19,7 @@ public class NavegacaoService
             }
             
         };
-        UiService.AvisoUi("Abrindo...");
+        UiService.OkUi("Abrindo...");
         processo.Start();
 
         _ = processo.StandardOutput.ReadToEndAsync();

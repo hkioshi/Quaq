@@ -18,9 +18,6 @@ public class PomodoroService
             Arguments = "\"Quaq Timer\" \"Tempo acabou!\"",
             UseShellExecute = false
         };
-
-
-
         int Ciclo = 1;
         while(true)
         {

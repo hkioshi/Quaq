@@ -14,7 +14,7 @@ public class GodotService
             RedirectStandardOutput = true,
             RedirectStandardError = true
         };
-        UiService.AvisoUi("Abrindo o Godot...");
+        UiService.OkUi("Abrindo o Godot...");
         Process.Start(psi);
 
     }

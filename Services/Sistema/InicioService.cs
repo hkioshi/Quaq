@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Quaq.Repository;
 
 namespace Quaq.Services.Sistema;
@@ -65,6 +66,9 @@ public static class ConsoleUI
         double memoriaTotalGb = memoriaTotal / 1024 / 1024;
         double memoriaUsadaGb = memoriaUsada / 1024 / 1024;
 
+
+
+      
         double usoMemoria = memoriaUsada / memoriaTotal * 100;
 
         double? temperatura = ObterTemperatura();
@@ -85,8 +89,8 @@ public static class ConsoleUI
 
         ┌─ SISTEMA ────────────────────────┐    ┌─ RECURSOS ───────────────────────┐
         │                                  │    │                                  │
-        │  VERSÃO      1.6.2               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
-        │  RUNTIME     .NET 10             │    │  USO         {usoMemoria,5:F1}%              │
+        │  VERSÃO      1.6.3               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
+        │  RUNTIME     net10.0             │    │  USO         {usoMemoria,5:F1}%              │
         │  PLATAFORMA  Linux               │    │  CPU         {temperaturaTexto,-12}        │
         │  STATUS      ● ONLINE            │    │  STATUS      {statusTemperatura,-15}     │
         │                                  │    │                                  │

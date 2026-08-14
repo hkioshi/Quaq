@@ -1,5 +1,4 @@
 using Quaq.Services.Sistema;
-
 namespace Quaq.Services.Diversao;
 public class JogoDaVelhaService
 {

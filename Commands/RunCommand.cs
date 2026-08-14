@@ -8,8 +8,22 @@ public class RunCommand : IComando
 {
     public Command Get()
     {
-        var runCmd = new Command("rodar", "Roda qualquer programa com arquivo de projeto");
-        runCmd.SetAction(act => RunService.Run());
+        var argOp = new Argument<string[]>("args")
+        {
+            Description = "Argumentos a serem passados para o programa",
+            Arity = ArgumentArity.ZeroOrMore
+        };
+        var runCmd = new Command("rodar", "Roda qualquer programa com arquivo de projeto")
+        {
+            argOp
+        };
+
+        runCmd.SetAction(act => 
+        {
+            var args = act.GetValue(argOp) ?? [];
+            RunService.Run(args);
+        });
+        
         return runCmd;
     }
 }

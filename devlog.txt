@@ -227,3 +227,140 @@ Correção da exclusão de anotações anteriores.
 ────────────────────────────────────────────────────────────
 QUAQ 1.6.2
 "Um passo de cada vez."
+
+╔══════════════════════════════════════════════════════════════╗
+║                     QUAQ 1.6.3 — DEV LOG                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ NOVIDADES ]
+────────────────────────────────────────────────────────────
+
+* Expansão do sistema de criação de projetos.
+
+  Agora o comando "novo" permite criar projetos Python e Rust,
+  além dos projetos .NET já existentes.
+
+* O suporte foi integrado às categorias de projetos pessoais
+  e de testes.
+
+  Exemplos:
+
+  quaq novo pessoal ProjetoPython -py
+
+  quaq novo pessoal ProjetoRust -rust
+
+  quaq novo teste TestePython -py
+
+  quaq novo teste TesteRust -rust
+
+* O comando "quaq rodar" foi ampliado para executar diferentes
+  tipos de projetos e programas.
+
+  Tecnologias suportadas:
+
+  * .NET
+  * Python
+  * Rust
+  * React
+
+* "quaq rodar" agora aceita argumentos destinados ao programa
+  executado através de "--".
+
+  Exemplo:
+
+  quaq rodar -- arg1 arg2
+
+[ ALTERAÇÕES ]
+────────────────────────────────────────────────────────────
+
+* A calculadora passou a aceitar expressões com espaços.
+
+  Exemplo:
+
+  1 + 1
+
+  Antes, a entrada precisava seguir a formatação sem espaços.
+  Agora, expressões matemáticas com espaços podem ser processadas.
+
+* O UiService foi atualizado para utilizar o Spectre.Console.
+
+  A mudança melhora a base da interface do Quaq e permite utilizar
+  os recursos de renderização e interação fornecidos pela biblioteca.
+
+[ MELHORIAS ]
+────────────────────────────────────────────────────────────
+
+* Adicionado o método:
+
+  OkUi("texto")
+
+  O método passa a fazer parte do UiService para exibição de
+  mensagens de confirmação ou sucesso.
+
+* O sistema de execução do Quaq ficou mais abrangente, permitindo
+  utilizar o mesmo comando para diferentes tecnologias.
+
+[ ESTRUTURA INTERNA ]
+────────────────────────────────────────────────────────────
+
+* Criado o DependenciaService.
+
+* O serviço ainda não possui implementação funcional nesta versão,
+  servindo como estrutura inicial para futuras funcionalidades.
+
+[ COMANDOS ]
+────────────────────────────────────────────────────────────
+
+* Criação de projeto pessoal:
+
+  quaq novo pessoal <Nome>
+
+* Criação de Web API pessoal:
+
+  quaq novo pessoal <Nome> -api
+
+* Criação de projeto Python pessoal:
+
+  quaq novo pessoal <Nome> -py
+
+* Criação de projeto Rust pessoal:
+
+  quaq novo pessoal <Nome> -rust
+
+* Criação de projeto de teste:
+
+  quaq novo teste <Nome>
+
+* Criação de Web API de teste:
+
+  quaq novo teste <Nome> -api
+
+* Criação de projeto Python de teste:
+
+  quaq novo teste <Nome> -py
+
+* Criação de projeto Rust de teste:
+
+  quaq novo teste <Nome> -rust
+
+* Execução de programas com argumentos:
+
+  quaq rodar -- arg1 arg2
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.3
+
+* Expansão da criação de projetos para Python e Rust.
+* Suporte a projetos pessoais e de testes.
+* "quaq rodar" agora suporta .NET, Python, Rust e React.
+* Adicionado suporte a argumentos através de "--".
+* Calculadora agora aceita expressões com espaços.
+* UiService atualizado para utilizar Spectre.Console.
+* Adicionado OkUi("texto").
+* Criado DependenciaService como estrutura inicial.
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.3
+"Um passo de cada vez."

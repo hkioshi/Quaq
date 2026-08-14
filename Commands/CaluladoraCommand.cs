@@ -10,7 +10,7 @@ public class CaluladoraCommand : IComando
     {
        var calculoCmd = new Command("calculo", "Calculadora");
 
-        var contaArg = new Argument<string>("conta")
+        var contaArg = new Argument<string[]>("conta")
         {
             Description = "Conta a ser calculada"
         };
@@ -20,6 +20,7 @@ public class CaluladoraCommand : IComando
         calculoCmd.SetAction(parseResult =>
         {
             CalculadoraService.Calcular(parseResult.GetValue(contaArg)!);
+            
         });
 
         return calculoCmd;

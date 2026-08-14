@@ -19,7 +19,7 @@ public class ContatoService
         var infos = service.BuscarContato(nome) ?? new Infos() ;
         infos.Email = email;
         service.SalvarJsonContato(nome,infos);
-        UiService.AvisoUi("email adicionado");
+        UiService.OkUi("email adicionado");
     
     }
 
@@ -28,7 +28,7 @@ public class ContatoService
         var infos = service.BuscarContato(v1) ?? new Infos() ;
         infos.Telefone = v2;
         service.SalvarJsonContato(v1,infos);
-        UiService.AvisoUi("telefone adicionado");
+        UiService.OkUi("telefone adicionado");
 
     }
 
@@ -55,11 +55,11 @@ public class ContatoService
             if (tecla.Key == ConsoleKey.Y)
             {
                 contatos.Remove(nome);
-                UiService.AvisoUi("\nDeletado com sucesso");
+                UiService.OkUi("\nDeletado com sucesso");
             }
             else
             {
-                UiService.AvisoUi("\nCancelado.");
+                UiService.OkUi("\nCancelado.");
             }
             
             

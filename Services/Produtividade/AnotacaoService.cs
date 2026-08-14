@@ -1,4 +1,3 @@
-using System.Security.Principal;
 using Quaq.Repository;
 using Quaq.Services.Sistema;
 
