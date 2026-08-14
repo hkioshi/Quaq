@@ -4,10 +4,17 @@ using Quaq.Services.Sistema;
 namespace Quaq.Services.Desenvolvimento;
 public class RunService
 {
-    public static void Run(string[] args)
+    public static void Run(string[] args) =>
+        BuscarLp(
+            Directory.GetFiles(Directory.GetCurrentDirectory()),
+            args);
+    
+    public static void Run(string arquivo, string[] args) =>
+        BuscarLp(
+            Directory.GetFiles(arquivo),
+            args);
+    private static void BuscarLp(string[] arquivos,string[] args)
     {
-        string[] arquivos = Directory.GetFiles(Directory.GetCurrentDirectory());
-        
         foreach (string arquivo in arquivos)
         {
             if(arquivo.Contains(".csproj"))
@@ -35,7 +42,6 @@ public class RunService
         UiService.AvisoUi("Nenhum arquivo de projeto encontrado");
 
     }
-
     private static void RunReact(string[] args)
     {
         if(!DependiciaService.VerificarDependencia("npm")) return;

@@ -364,3 +364,85 @@ Quaq 1.6.3
 ────────────────────────────────────────────────────────────
 QUAQ 1.6.3
 "Um passo de cada vez."
+
+╔══════════════════════════════════════════════════════════════╗
+║ QUAQ 1.6.4 — DEV LOG ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ NOVIDADES ]
+────────────────────────────────────────────────────────────
+
+Adicionado o subcomando "quaq abrir", permitindo cadastrar,
+executar, remover e listar comandos para abertura de aplicações.
+Adicionado o subcomando "quaq proj", para executar projetos
+cadastrados.
+
+[ ALTERAÇÕES ]
+────────────────────────────────────────────────────────────
+
+O comando "quaq abrir" substitui os comandos "quaq godot" e
+"quaq jogos".
+A substituição reduz a quantidade de dependências específicas
+do Quaq e centraliza a abertura de aplicações em um único
+sistema.
+
+[ CORREÇÕES ]
+────────────────────────────────────────────────────────────
+
+Corrigido o problema com textos contendo "[]" no Spectre.Console.
+Textos com colchetes não são mais interpretados incorretamente
+como cores ou estilos do Spectre.Console.
+
+[ COMANDOS ]
+────────────────────────────────────────────────────────────
+
+Novo comando:
+
+quaq abrir salvar nome raiz args
+
+Salva um comando para abrir uma aplicação.
+
+Novo comando:
+
+quaq abrir app nome
+
+Abre a aplicação cadastrada.
+
+Novo comando:
+
+quaq abrir delete nome
+
+Deleta um comando de aplicação cadastrado.
+
+Novo comando:
+
+quaq abrir todos
+
+Lista todos os nomes de aplicações cadastradas.
+
+Novo comando:
+
+quaq proj rodar nome args
+
+Executa o projeto cadastrado pelo nome.
+
+[ REMOÇÕES ]
+────────────────────────────────────────────────────────────
+
+Removido o comando "quaq godot".
+Removido o comando "quaq jogos".
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.4
+
+Novo sistema "quaq abrir" para gerenciamento de aplicações.
+Novo subcomando "quaq proj".
+Redução de dependências específicas do Quaq.
+Correção de textos contendo colchetes no Spectre.Console.
+Removidos "quaq godot" e "quaq jogos".
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.4
+"Um passo de cada vez."

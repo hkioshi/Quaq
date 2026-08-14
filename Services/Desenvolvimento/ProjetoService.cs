@@ -99,5 +99,11 @@ public class ProjetoService
         UiService.OkUi("Projeto Salvo");
     }
 
-    
+    public void Run(string nome, string[] args)
+    {
+        string? caminho = repos.ExibirCaminho(nome);
+        if (caminho is not null)
+            RunService.Run(caminho, args);
+        
+    }
 }

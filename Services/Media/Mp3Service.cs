@@ -35,13 +35,13 @@ public class Mp3Service
         process.OutputDataReceived += (s, e) =>
         {
             if (e.Data != null)
-                UiService.ErroUi(e.Data);
+                Console.WriteLine(e.Data);
         };
 
         process.ErrorDataReceived += (s, e) =>
         {
             if (e.Data != null)
-                UiService.ErroUi($"ERRO: {e.Data}");
+                Console.WriteLine($"ERRO: {e.Data}");
         };
 
         process.Start();

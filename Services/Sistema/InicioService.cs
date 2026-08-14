@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using Quaq.Repository;
+using Spectre.Console;
 
 namespace Quaq.Services.Sistema;
 public static class ConsoleUI
@@ -25,19 +21,25 @@ public static class ConsoleUI
         ConfigRepository config = new();
         
         var mensagem = $"Bem vindo {config.ExibirNome()}" ?? "   by Quaq Labs";
-        Console.WriteLine($"""
-                                      Q U A Q
-                            SISTEMA MULTIUSO DE TERMINAL
-                                 {mensagem}
+        AnsiConsole.Write(
+    new Align(
+        new Markup($"""
+        [cyan]Q U A Q[/]
+        [cyan]SISTEMA MULTIUSO DE TERMINAL[/]
 
-                      ╭────────────────────────────────────╮
-                      │   __                               │
-                      │ >(o )___      Bem-vindo ao Quaq    │
-                      │  ( ._> /     ───────────────────   │
-                      │   `---'       Digite "Quaq help"   │
-                      │                                    │
-                      ╰────────────────────────────────────╯
-        """);
+        [cyan]{mensagem}[/]
+
+        [cyan]╭────────────────────────────────────╮
+        │   __                               │
+        │ >(o )___      Bem-vindo ao Quaq    │
+        │  ( ._> /     ───────────────────   │
+        │   `---'       Digite "Quaq help"   │
+        │                                    │
+        ╰────────────────────────────────────╯[/]
+        """),
+        HorizontalAlignment.Center
+    )
+);
 
         Console.ResetColor();
     }
@@ -62,21 +64,13 @@ public static class ConsoleUI
         }
 
         double memoriaUsada = memoriaTotal - memoriaDisponivel;
-
         double memoriaTotalGb = memoriaTotal / 1024 / 1024;
         double memoriaUsadaGb = memoriaUsada / 1024 / 1024;
-
-
-
-      
         double usoMemoria = memoriaUsada / memoriaTotal * 100;
-
         double? temperatura = ObterTemperatura();
-
         string temperaturaTexto = temperatura.HasValue
             ? $"{temperatura.Value:F1} °C"
             : "N/D";
-
         string statusTemperatura = temperatura switch
         {
             null =>  "● N/A   ",
@@ -85,17 +79,21 @@ public static class ConsoleUI
             _ =>     "● ALTA  "
         };
 
-        Console.WriteLine($"""
-
-        ┌─ SISTEMA ────────────────────────┐    ┌─ RECURSOS ───────────────────────┐
+        AnsiConsole.Write(
+    new Align(
+        new Markup($"""
+        [darkcyan]┌─ SISTEMA ────────────────────────┐    ┌─ RECURSOS ───────────────────────┐
         │                                  │    │                                  │
         │  VERSÃO      1.6.3               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
         │  RUNTIME     net10.0             │    │  USO         {usoMemoria,5:F1}%              │
         │  PLATAFORMA  Linux               │    │  CPU         {temperaturaTexto,-12}        │
         │  STATUS      ● ONLINE            │    │  STATUS      {statusTemperatura,-15}     │
         │                                  │    │                                  │
-        └──────────────────────────────────┘    └──────────────────────────────────┘
-        """);
+        └──────────────────────────────────┘    └──────────────────────────────────┘[/]
+        """),
+        HorizontalAlignment.Center
+    )
+);
 
         Console.ResetColor();
     }
@@ -159,10 +157,13 @@ public static class ConsoleUI
     {
         Console.ForegroundColor = ConsoleColor.DarkGray;
 
-        Console.WriteLine("""
-        ────────────────────────────────────────────────────────────────
-                      "Um terminal. Infinitas possibilidades."
-        """);
+        AnsiConsole.Write(
+        new Rule());
+        AnsiConsole.Write(
+            new Align(
+            new Markup("[bold cyan]Um terminal. Infinitas possibilidades.[/]"),
+            HorizontalAlignment.Center
+            ));
 
         Console.ResetColor();
     }

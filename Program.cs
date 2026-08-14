@@ -16,17 +16,17 @@ root.Add(new CaluladoraCommand().Get());
 root.Add(new QrCodeCommand().Get());
 root.Add(new CameraCommand().Get());
 root.Add(new RunCommand().Get());
-root.Add(new GodotCommand().Get());
 root.Add(new IpCommand().Get());
 root.Add(new ConcelhoCommand().Get());
 root.Add(new MotivacaoCommand().Get());
 root.Add(new PlaylistCommand().Get());
 root.Add(new NovoCommand().Get());
 root.Add(new AnotacoesCommand().Get());
-root.Add(new JogosCommand().Get());
 root.Add(new HoraCommand().Get());
 root.Add(new ConfigCommand().Get());
 root.Add(new LogCommand().Get());
+root.Add(new AppCommand().Get());
+
 
 
 //root.Add(new FlashcardCommad().Get());

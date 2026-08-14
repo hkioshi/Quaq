@@ -16,11 +16,42 @@ public class ProjetosCommand : IComando
             CriarSaveCommand(),
             CriarDeleteCommand(),
             CriarTerminalCommand(),
+            CriarRunCommand(),
             CriarCommitCommand()
 
         };
 
         return projetosCmd;
+    }
+
+    public Command CriarRunCommand()
+    {
+        var argOp = new Argument<string[]>("args")
+        {
+            Description = "Argumentos a serem passados para o programa",
+            Arity = ArgumentArity.ZeroOrMore
+        };
+
+        var nomeArg = new Argument<string>("nome")
+        {
+            Description = "Nome do projeto"
+        };
+
+        var runCmd = new Command("rodar", "Roda qualquer programa com arquivo de projeto")
+        {
+            nomeArg,
+            argOp
+        };
+
+        runCmd.SetAction(act => 
+        {
+            var args = act.GetValue(argOp) ?? [];
+            var nome = act.GetValue(nomeArg);
+
+            new ProjetoService().Run(nome!,args);
+        });
+        
+        return runCmd;
     }
 
     private static Command CriarListCommand()
@@ -161,6 +192,4 @@ public class ProjetosCommand : IComando
 
         return cmd;
     }
-
-    
 }

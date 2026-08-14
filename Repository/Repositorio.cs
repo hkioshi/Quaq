@@ -21,4 +21,5 @@ public class Repositorio
         if (!File.Exists(caminho)) File.WriteAllText(caminho, "{}");
         return File.ReadAllText(caminho);
     }
+
 }

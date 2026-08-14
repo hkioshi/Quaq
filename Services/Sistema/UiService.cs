@@ -5,19 +5,17 @@ public class UiService
 {
 
    public static void LinhaUi(string titulo, string texto) =>
-        AnsiConsole.Write(
-            new Panel(new Markup(texto))
-            {
-                Header = new PanelHeader(titulo)
-            }
-        );
+    AnsiConsole.Write(
+        new Panel(Markup.Escape(texto))
+        {
+            Header = new PanelHeader(Markup.Escape(titulo))
+        }
+    );
 
-
-    public static void LinhaUi(string texto) =>
-        AnsiConsole.Write(
-            new Panel(new Markup(texto))
-        );
-    
+public static void LinhaUi(string texto) =>
+    AnsiConsole.Write(
+        new Panel(Markup.Escape(texto))
+    );
     public static void OkUi(string texto)=>
         LinhaUi("Ok", $"[green]{texto}[/]");
     public static void AvisoUi(string texto)=>
