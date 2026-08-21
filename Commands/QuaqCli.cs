@@ -24,7 +24,7 @@ public static class QuaqCli
             
         root.Adicionar(
             new AnotacoesCommand().Get(),
-            new AppCommand().Get(),
+            new AbrirCommand().Get(),
             new BaixarMp3Command().Get(),
             new CaluladoraCommand().Get(),
             new CameraCommand().Get(),

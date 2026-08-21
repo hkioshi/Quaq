@@ -3,7 +3,7 @@ using Quaq.Interfaces;
 using Quaq.Services.Produtividade;
 namespace Quaq.Commands;
 
-public class AppCommand: IComando
+public class AbrirCommand: IComando
 {
 
     private static Command CriarAnotarCommand()
@@ -36,7 +36,7 @@ public class AppCommand: IComando
             var raiz = pr.GetValue(RaizArg);
             var args = pr.GetValue(ArgArg) ?? [];
             
-            AppService.Salvar(nome!,raiz!,string.Join(" ", args));
+            AbrirService.Salvar(nome!,raiz!,string.Join(" ", args));
         });
 
         return cmd;
@@ -56,7 +56,7 @@ public class AppCommand: IComando
         cmd.SetAction(pr =>
         {
             var nome = pr.GetValue(nomeArg);
-            AppService.Abrir(nome!);
+            AbrirService.Abrir(nome!);
         });
 
         return cmd;
@@ -76,15 +76,15 @@ public class AppCommand: IComando
         cmd.SetAction(pr =>
         {
             var nome = pr.GetValue(nomeArg);
-            AppService.Deletar(nome!);
+            AbrirService.Deletar(nome!);
         });
 
         return cmd;
     }
     private static Command CriarAbrirTodosCommand()
     {
-        var cmd = new Command("todos", "Abrir um app salvo");
-        cmd.SetAction(pr =>AppService.Lista());
+        var cmd = new Command("menu", "Abrir um app salvo");
+        cmd.SetAction(pr =>AbrirService.Lista());
         return cmd;
     }
     public Command Get() =>

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Quaq.Repository;
 using Quaq.Services.Sistema;
+using Spectre.Console;
 namespace Quaq.Services.Desenvolvimento;
 public class ProjetoService
 {
@@ -104,6 +105,49 @@ public class ProjetoService
         string? caminho = repos.ExibirCaminho(nome);
         if (caminho is not null)
             RunService.Run(caminho, args);
+        
+    }
+
+    internal void ProjMenu()
+    {
+        var listaDeProjeto = repos.ExibirTodosProjetos();
+        var opcao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione uma Projeto:[/]")
+                .AddChoices(listaDeProjeto.Select(x => x.Key))
+        );
+        var acao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title($"[bold]O que gostaria de fazer com [/][blue]{opcao}[/]")
+                .AddChoices(
+                    "Abrir no gerenciador de arquivos",
+                    "Abrir no VsCode",
+                    "Deletar projeto",
+                    "Abrir no terminal",
+                    "Fazer commit do projeto"
+                )
+        );
+        switch (acao)
+        {
+            case "Abrir no gerenciador de arquivos":
+                AbrirProjeto(opcao);
+                break;
+            case "Abrir no VsCode":
+                CodarProjeto(opcao);
+                break;
+            case "Deletar projeto":
+                DeletarProjeto(opcao);
+                break;
+            case "Abrir no terminal":
+                AbrirTerminal(opcao);
+                break;
+            case "Fazer commit do projeto":
+                var mensagem = AnsiConsole.Prompt(
+                new TextPrompt<string>("Mensagem do commit")
+                    .DefaultValue("Novo Commit"));
+                FazerCommit(opcao, mensagem);
+                break;
+        }
         
     }
 }

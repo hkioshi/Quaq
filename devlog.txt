@@ -498,3 +498,157 @@ Quaq 1.6.5
 ────────────────────────────────────────────────────────────
 QUAQ 1.6.5
 "Um passo de cada vez."
+
+╔══════════════════════════════════════════════════════════════╗
+║ QUAQ 1.6.6 — DEV LOG ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ NOVIDADES ]
+────────────────────────────────────────────────────────────
+
+Adicionados novos subcomandos de menu para facilitar a navegação
+e a seleção de opções dentro do Quaq.
+
+Adicionado o comando:
+
+quaq proj menu
+
+Centraliza as opções relacionadas a projetos em um menu de seleção.
+
+Adicionado o comando:
+
+quaq proj anotacao menu
+
+Permite acessar as opções de anotações por meio de um menu.
+
+Adicionado o comando:
+
+quaq proj abrir menu
+
+Permite acessar as opções para abrir projetos por meio de um menu.
+
+Adicionado o comando:
+
+quaq dado rolar menu
+
+Nova função para rolagem de dados. Utiliza uma quantidade fixa de
+faces, executa múltiplas rolagens e exibe os resultados individuais
+juntamente com o total.
+
+[ ALTERAÇÕES ]
+────────────────────────────────────────────────────────────
+
+O comando de anotações foi alterado:
+
+quaq proj anotacao lista
+
+passou a utilizar:
+
+quaq proj anotacao menu
+
+O comando para abrir projetos foi alterado:
+
+quaq proj abrir todos
+
+passou a utilizar:
+
+quaq proj abrir menu
+
+O comando de dados foi reorganizado:
+
+quaq dado x
+
+passou a utilizar:
+
+quaq dado rolar x
+
+Também foi adicionado:
+
+quaq dado rolar menu
+
+O comando "novo" foi modificado. Anteriormente, os argumentos eram
+informados diretamente:
+
+quaq novo <argumentos>
+
+Agora o comando abre um menu de seleção:
+
+quaq novo
+
+[ MELHORIAS ]
+────────────────────────────────────────────────────────────
+
+Todos os comandos que utilizam menus passaram a utilizar a função
+de seleção do Spectre.Console, facilitando a escolha das opções
+diretamente pelo terminal.
+O sistema de diretórios foi reorganizado para melhorar a estrutura
+dos arquivos do Quaq e dos projetos.
+
+O diretório:
+
+repos
+
+passou a utilizar:
+
+source/repos
+
+O diretório de dados do Quaq:
+
+username/.quaq
+
+passou a utilizar:
+
+.config/quaq
+
+O sistema agora possui diretórios dinâmicos, permitindo escolher
+onde os repositórios de projetos serão armazenados e criar novos
+diretórios para projetos.
+
+[ CORREÇÕES ]
+────────────────────────────────────────────────────────────
+
+Corrigido um bug no funcionamento do Pomodoro.
+
+[ COMANDOS ]
+────────────────────────────────────────────────────────────
+
+Novo comando:
+
+quaq proj menu
+
+Novo menu:
+
+quaq proj anotacao menu
+
+Novo menu:
+
+quaq proj abrir menu
+
+Nova forma de rolagem de dados:
+
+quaq dado rolar x
+
+Novo menu para rolagem de dados:
+
+quaq dado rolar menu
+
+O comando "novo" agora utiliza um menu:
+
+quaq novo
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.6
+
+Novos menus para projetos, anotações, abertura de projetos e dados.
+Novo sistema de rolagem múltipla de dados com exibição dos resultados
+e do total.
+Comando "novo" convertido para um fluxo baseado em menu.
+Menus padronizados utilizando a seleção do Spectre.Console.
+Estrutura de diretórios reorganizada e suporte a diretórios dinâmicos.
+Correção de bug no Pomodoro.
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.6
+"Um passo de cada vez."

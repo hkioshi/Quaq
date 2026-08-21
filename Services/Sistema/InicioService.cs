@@ -85,7 +85,7 @@ public static class ConsoleUI
         new Markup($"""
         [darkcyan]┌─ SISTEMA ────────────────────────┐    ┌─ RECURSOS ───────────────────────┐
         │                                  │    │                                  │
-        │  VERSÃO      1.6.3               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
+        │  VERSÃO      1.6.6               │    │  MEMÓRIA     {memoriaUsadaGb,4:F1} / {memoriaTotalGb,4:F1} GB      │
         │  RUNTIME     net10.0             │    │  USO         {usoMemoria,5:F1}%              │
         │  PLATAFORMA  Linux               │    │  CPU         {temperaturaTexto,-12}        │
         │  STATUS      ● ONLINE            │    │  STATUS      {statusTemperatura,-15}     │

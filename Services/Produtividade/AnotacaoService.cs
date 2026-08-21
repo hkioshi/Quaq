@@ -1,5 +1,6 @@
 using Quaq.Repository;
 using Quaq.Services.Sistema;
+using Spectre.Console;
 
 namespace Quaq.Services.Produtividade;
 
@@ -40,9 +41,15 @@ public class AnotacaoService
 
     internal static void ListarCadernos()
     {
-        UiService.LinhaUi("Cadernos");
         AnotacaoRepositorio repos = new("anotacoes.json");
-        var lista = repos.BuscarTodosCadernos() ?? [];
-        lista.ForEach(a => Console.WriteLine($" > {a}"));
+
+        var cadernos = repos.BuscarTodosCadernos();
+            var opcao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione um Caderno:[/]")
+                .AddChoices(cadernos));
+            
+        IniciarAnotacao(opcao);
+        
     }
 }

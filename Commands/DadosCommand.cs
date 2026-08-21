@@ -6,14 +6,24 @@ namespace Quaq.Commands;
 
 public class DadosCommand : IComando
 {
-    public Command Get()
+    public Command CriarMenuCommand()
     {
+        var dadosCmd = new Command("menu", "Rolagem de dados");
+        
+        dadosCmd.SetAction(pr => 
+        {
+            DadosService.DadoMenu();
+        });
 
+        return dadosCmd;
+    }
+    public Command CriarRolarCommand()
+    {
         var facesArg = new Argument<int>("faces")
         {
             Description = "Número de faces do dado"
         };
-        var dadosCmd = new Command("dado", "Rolagem de dados")
+        var dadosCmd = new Command("rolar", "Rolagem de dados")
         {
             facesArg
         };
@@ -22,4 +32,12 @@ public class DadosCommand : IComando
 
         return dadosCmd;
     }
+
+    public Command Get() =>
+        new Command("dado", "Rolagem de dados")
+        {
+            CriarRolarCommand(),
+            CriarMenuCommand()
+        };
+    
 }

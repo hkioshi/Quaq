@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Quaq.Data;
 using Quaq.Repository;
 using Quaq.Services.Sistema;
+using Spectre.Console;
 
 namespace Quaq.Services.Produtividade
 {
-    public class AppService
+    public class AbrirService
     {
         static AppRepository repos = new("apps.json");
 
@@ -54,11 +55,16 @@ namespace Quaq.Services.Produtividade
 
         public static void Lista()
         {
-            UiService.ListaUi(
-                "Apps", 
-                repos.BuscarTodosApps()
+            var apps = repos.BuscarTodosApps();
+            var opcao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione uma tarefa:[/]")
+                .AddChoices(apps
                     .Select(x => x.Key)
-                    .ToArray());
+                    .ToArray()));
+            
+            Abrir( opcao);
+        
         }
 
         internal static void Deletar(string nome)

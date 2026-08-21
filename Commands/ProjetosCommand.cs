@@ -17,11 +17,20 @@ public class ProjetosCommand : IComando
             CriarDeleteCommand(),
             CriarTerminalCommand(),
             CriarRunCommand(),
-            CriarCommitCommand()
+            CriarCommitCommand(),
+            CriarMenuCommand()
 
         };
 
         return projetosCmd;
+    }
+
+
+    public Command CriarMenuCommand()
+    {
+        var menuCmd = new Command("menu", "Menu do gerenciador de projetos");
+        menuCmd.SetAction(_ => new ProjetoService().ProjMenu());
+        return menuCmd;
     }
 
     public Command CriarRunCommand()

@@ -9,7 +9,7 @@ public class ContatoCommand : IComando
 {
     private static Command CriarListaCommand()
     {
-        var cmd = new Command("lista", "Abre o terminal de um projeto salvo");
+        var cmd = new Command("lista", "Abre um menu dos contatos");
         cmd.SetAction(pr =>
         {
             ContatoService.ExibirTodosContatos();
@@ -108,7 +108,6 @@ public class ContatoCommand : IComando
         });
         return cmd;
     }
-
     private static Command CriarDeletarCommand()
     {
         var nomeArg = new Argument<string>("Nome")

@@ -1,51 +1,104 @@
 using System.Diagnostics;
+using Quaq.Repository;
 using Quaq.Services.Sistema;
+using Spectre.Console;
 
 namespace Quaq.Services.Desenvolvimento;
 
 public class NovoService
 {
-    private static void AbrirProjeto(string Arquivo) =>
-        Process.Start("code", Arquivo);
-    private static bool VerificarSeExiste(string Arquivo) =>
-        Directory.Exists(Arquivo);
-    
-    private static string? EncontrarCaminho(string nome, string pasta)
+    private static readonly Dictionary<string, string[]> Linguagens = new()
     {
-         var Arquivo = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            "repos",
-            pasta,
-            nome);
+        { "c#", ["api", "console"] },
+        { "python", ["console"] },
+        { "rust", ["console"] }
+    };
 
-        if(VerificarSeExiste(Arquivo))
+    public static void CriarNovoConsole(string nome, string tipo, string pasta)
+    {
+        switch (tipo)
         {
-           UiService.AvisoUi("Projeto Ja existe");
-           AbrirProjeto(Arquivo);
-           return null;
+            case "c#":
+                if (!DependiciaService.VerificarDependencia("dotnet"))
+                    return;
+
+                ExecutarProcesso(
+                    "dotnet",
+                    $"new console -n \"{nome}\"",
+                    pasta
+                );
+                break;
+
+            case "python":
+                if (!DependiciaService.VerificarDependencia("python3"))
+                    return;
+
+                CriarProjetoPython(nome, pasta);
+                break;
+
+            case "rust":
+                if (!DependiciaService.VerificarDependencia("cargo"))
+                    return;
+
+                ExecutarProcesso(
+                    "cargo",
+                    $"new \"{nome}\"",
+                    pasta
+                );
+                break;
         }
 
-        return Arquivo;
-    } 
-    public static void CriarNovo(string nome, string tipo, string pasta)
+        AbrirProjeto(Path.Combine(pasta, nome));
+    }
+
+    public static void CriarNovaApi(string nome, string tipo, string pasta)
     {
-        var Arquivo = EncontrarCaminho(nome, pasta) ;
-        if (Arquivo is null) return;
-        if(!DependiciaService.VerificarDependencia("dotnet")) return;
+        switch (tipo)
+        {
+            case "c#":
+                if (!DependiciaService.VerificarDependencia("dotnet"))
+                    return;
 
+                ExecutarProcesso(
+                    "dotnet",
+                    $"new webapi -n \"{nome}\"",
+                    pasta
+                );
 
-        Process processo = new Process();
+                AbrirProjeto(Path.Combine(pasta, nome));
+                break;
+        }
+    }
 
-        processo.StartInfo.FileName = "dotnet";
-        processo.StartInfo.Arguments = $"new {tipo} -n \"{nome}\"";
-        processo.StartInfo.WorkingDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            "repos",
-            pasta);
+    private static void CriarProjetoPython(string nome, string pasta)
+    {
+        string diretorio = Path.Combine(pasta, nome);
 
-        processo.StartInfo.UseShellExecute = false;
-        processo.StartInfo.RedirectStandardOutput = true;
-        processo.StartInfo.RedirectStandardError = true;
+        Directory.CreateDirectory(diretorio);
+
+        File.WriteAllText(
+            Path.Combine(diretorio, "main.py"),
+            ""
+        );
+    }
+
+    private static void ExecutarProcesso(
+        string comando,
+        string argumentos,
+        string diretorio)
+    {
+        using var processo = new Process();
+
+        processo.StartInfo = new ProcessStartInfo
+        {
+            FileName = comando,
+            Arguments = argumentos,
+            WorkingDirectory = diretorio,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true
+        };
 
         processo.Start();
 
@@ -54,61 +107,106 @@ public class NovoService
 
         processo.WaitForExit();
 
-        UiService.OkUi(saida);
-        AbrirProjeto(Arquivo);
-
-
-       if (!string.IsNullOrEmpty(erro))
+        if (processo.ExitCode == 0)
+        {
+            if (!string.IsNullOrWhiteSpace(saida))
+                UiService.OkUi(saida);
+        }
+        else
+        {
             UiService.ErroUi(erro);
+        }
     }
 
-    internal static void CriarNovoPy(string nome, string pasta)
+    private static void AbrirProjeto(string diretorio)
     {
-        var Arquivo = EncontrarCaminho(nome, pasta) ;
-        if (Arquivo is null) return;
+        if (!Directory.Exists(diretorio))
+            return;
 
-        Directory.CreateDirectory(Arquivo);
-        File.Create(Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            "repos",
-            pasta,
-            nome,
-            "main.py"));
+        var psi = new ProcessStartInfo
+        {
+            FileName = "code",
+            UseShellExecute = false
+        };
 
-        AbrirProjeto(Arquivo);
+        psi.ArgumentList.Add(diretorio);
+
+        try
+        {
+            Process.Start(psi);
+        }
+        catch (Exception ex)
+        {
+            UiService.ErroUi(
+                $"Não foi possível abrir o projeto no VS Code: {ex.Message}"
+            );
+        }
     }
 
-    internal static void CriarNovoRust(string nome, string pasta)
+    internal static void NovoMenu()
     {
-        var Arquivo = EncontrarCaminho(nome, pasta) ;
-        if (Arquivo is null) return;
-        if(!DependiciaService.VerificarDependencia("cargo")) return;
+        DiretorioRepository repos = new();
 
-        Process processo = new Process();
+        var pastas = repos.ListarRepositorios();
 
-        processo.StartInfo.FileName = "cargo";
-        processo.StartInfo.Arguments = $"new \"{nome}\"";
-        processo.StartInfo.WorkingDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            "repos",
-            pasta);
+        pastas.Add("Nova Pasta");
 
-        processo.StartInfo.UseShellExecute = false;
-        processo.StartInfo.RedirectStandardOutput = true;
-        processo.StartInfo.RedirectStandardError = true;
+        var opcao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione uma Pasta:[/]")
+                .AddChoices(pastas)
+        );
 
-        processo.Start();
+        string pasta;
 
-        string saida = processo.StandardOutput.ReadToEnd();
-        string erro = processo.StandardError.ReadToEnd();
+        if (opcao == "Nova Pasta")
+        {
+            var nomeDiretorio = AnsiConsole.Prompt(
+                new TextPrompt<string>("Nome do novo diretório:")
+                    .DefaultValue("Meus_Projetos")
+            );
 
-        processo.WaitForExit();
+            pasta = repos.NovaPasta(nomeDiretorio);
+        }
+        else
+        {
+            pasta = repos.AcharPasta(opcao);
+        }
 
-        UiService.OkUi(saida);
-        AbrirProjeto(Arquivo);
+        var linguagem = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione uma linguagem:[/]")
+                .AddChoices(Linguagens.Keys)
+        );
 
+        var tipo = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione o tipo de projeto:[/]")
+                .AddChoices(Linguagens[linguagem])
+        );
 
-       if (!string.IsNullOrEmpty(erro))
-            UiService.ErroUi(erro);
+        var nomeProjeto = AnsiConsole.Prompt(
+            new TextPrompt<string>("Nome do novo projeto:")
+                .DefaultValue("ProjetoNovo")
+        );
+
+        switch (tipo)
+        {
+            case "api":
+                CriarNovaApi(
+                    nomeProjeto,
+                    linguagem,
+                    pasta
+                );
+                break;
+
+            case "console":
+                CriarNovoConsole(
+                    nomeProjeto,
+                    linguagem,
+                    pasta
+                );
+                break;
+        }
     }
 }

@@ -3,8 +3,8 @@ public class Repositorio
 {
     string pasta = Path.Combine(
     Environment.GetFolderPath(
-        Environment.SpecialFolder.UserProfile),
-    ".quaq");
+        Environment.SpecialFolder.ApplicationData),
+    "quaq");
 
     public string caminho { get; set; }
     public Repositorio(string c)

@@ -32,9 +32,9 @@ public class AnotacoesCommand: IComando
 
         return cmd;
     }
-    private static Command CriarListaCommand()
+    private static Command CriarMenuCommand()
     {
-        var cmd = new Command("lista", "Abre o terminal de um projeto salvo");
+        var cmd = new Command("menu", "Menu de Cadernos de Anotações");
         cmd.SetAction(pr =>
         {
             AnotacaoService.ListarCadernos();
@@ -47,7 +47,7 @@ public class AnotacoesCommand: IComando
         new Command("anotacao", "Anotações")
         {
             CriarAnotarCommand(),
-            CriarListaCommand()
+            CriarMenuCommand()
         };
 
     
