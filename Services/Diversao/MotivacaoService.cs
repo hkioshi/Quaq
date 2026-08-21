@@ -65,9 +65,9 @@ public class MotivacaoService
     public static void Motivar()
     {
         Random random = new Random();
-        var conselho = conselhos[random.Next(conselhos.Length)];
-        UiService.LinhaUi("Concelho",conselho);
-        FalaService.Falar(conselho);
+        var motivacao = conselhos[random.Next(conselhos.Length)];
+        UiService.LinhaUi("Motivação",motivacao);
+        FalaService.Falar(motivacao);
     }
     public static async Task GetAdvice()
     {
@@ -76,7 +76,7 @@ public class MotivacaoService
         AdviceResponse? json = await httpClient.GetFromJsonAsync<AdviceResponse>(
             "https://api.adviceslip.com/advice");
 
-        UiService.LinhaUi("Motivação",json?.slip.advice ?? "Conselho nao encontrado");
+        UiService.LinhaUi("Conselho",json?.slip.advice ?? "Conselho nao encontrado");
     }
 }
 

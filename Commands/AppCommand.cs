@@ -1,7 +1,6 @@
 using System.CommandLine;
 using Quaq.Interfaces;
 using Quaq.Services.Produtividade;
-using Quaq.Services.Sistema;
 namespace Quaq.Commands;
 
 public class AppCommand: IComando
@@ -42,7 +41,7 @@ public class AppCommand: IComando
 
         return cmd;
     }
-     private static Command CriarAbrirCommand()
+    private static Command CriarAbrirCommand()
     {
         var nomeArg = new Argument<string>("Nome")
         {
@@ -84,7 +83,6 @@ public class AppCommand: IComando
     }
     private static Command CriarAbrirTodosCommand()
     {
-
         var cmd = new Command("todos", "Abrir um app salvo");
         cmd.SetAction(pr =>AppService.Lista());
         return cmd;
@@ -98,6 +96,4 @@ public class AppCommand: IComando
             CriarAbrirTodosCommand()
         };
 
-    
-    
 }

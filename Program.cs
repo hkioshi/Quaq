@@ -1,38 +1,5 @@
 ﻿using Quaq.Commands;
-
-var root = new QuaqCli().Get();
-
-root.Add(new VelhaCommand().Get());
-root.Add(new PomodoroCommand().Get());
-root.Add(new ContatoCommand().Get());
-root.Add(new EmailCommand().Get());
-root.Add(new FalaCommand().Get());
-root.Add(new NavegacaoCommand().Get());
-root.Add(new DadosCommand().Get());
-root.Add(new BaixarMp3Command().Get());
-root.Add(new ProjetosCommand().Get());
-root.Add(new IaCommand().Get());
-root.Add(new CaluladoraCommand().Get());
-root.Add(new QrCodeCommand().Get());
-root.Add(new CameraCommand().Get());
-root.Add(new RunCommand().Get());
-root.Add(new IpCommand().Get());
-root.Add(new ConcelhoCommand().Get());
-root.Add(new MotivacaoCommand().Get());
-root.Add(new PlaylistCommand().Get());
-root.Add(new NovoCommand().Get());
-root.Add(new AnotacoesCommand().Get());
-root.Add(new HoraCommand().Get());
-root.Add(new ConfigCommand().Get());
-root.Add(new LogCommand().Get());
-root.Add(new AppCommand().Get());
-
-
-
-//root.Add(new FlashcardCommad().Get());
-
-
-    // new UpdateCommand().Get();
-
-
-return await root.Parse(args).InvokeAsync();
+return await QuaqCli
+    .Get()
+    .Parse(args)
+    .InvokeAsync();

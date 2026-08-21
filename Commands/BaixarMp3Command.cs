@@ -35,9 +35,6 @@ public class BaixarMp3Command : IComando
             }
                 
         });
-
-        
-
         return mp3Cmd;
     }
 }

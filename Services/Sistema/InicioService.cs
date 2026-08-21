@@ -2,6 +2,7 @@ using System.Globalization;
 using Quaq.Repository;
 using Spectre.Console;
 
+
 namespace Quaq.Services.Sistema;
 public static class ConsoleUI
 {

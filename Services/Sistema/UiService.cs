@@ -17,12 +17,11 @@ public static void LinhaUi(string texto) =>
         new Panel(Markup.Escape(texto))
     );
     public static void OkUi(string texto)=>
-        LinhaUi("Ok", $"[green]{texto}[/]");
+        LinhaUi("Ok", $"{texto}");
     public static void AvisoUi(string texto)=>
-        LinhaUi("Aviso", $"[yellow]{texto}[/]");
-
+        LinhaUi("Aviso", $"{texto}");
     public static void ErroUi(string texto) =>
-        LinhaUi("Erro", $"[red]{texto}[/]");
+        LinhaUi("Erro", $"{texto}");
     
 
     internal static void ListaUi(string titulo, string[] linhas)
@@ -30,7 +29,7 @@ public static void LinhaUi(string texto) =>
         var table = new Table();
 
         table.AddColumn(titulo);
-
+        
         foreach (var linha in linhas)
             table.AddRow(linha);
         AnsiConsole.Write(table);

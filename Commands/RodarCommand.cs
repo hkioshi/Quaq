@@ -4,7 +4,7 @@ using Quaq.Services.Desenvolvimento;
 
 namespace Quaq.Commands;
 
-public class RunCommand : IComando
+public class RodarCommand : IComando
 {
     public Command Get()
     {

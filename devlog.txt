@@ -446,3 +446,55 @@ Removidos "quaq godot" e "quaq jogos".
 ────────────────────────────────────────────────────────────
 QUAQ 1.6.4
 "Um passo de cada vez."
+
+╔══════════════════════════════════════════════════════════════╗
+║                     QUAQ 1.6.5 — DEV LOG                  ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ NOVIDADES ]
+────────────────────────────────────────────────────────────
+
+* Novo comando tarefas, um gerenciador de tarefas integrado ao Quaq.
+
+[ ALTERAÇÕES ]
+────────────────────────────────────────────────────────────
+
+* Os comandos conselho e motivacao foram realocados para o comando frase como subcomandos.
+
+[ MELHORIAS ]
+────────────────────────────────────────────────────────────
+
+* A interface do Pomodoro foi atualizada, proporcionando uma experiência visual mais organizada.
+
+[ REMOÇÕES ]
+────────────────────────────────────────────────────────────
+
+* Removidos os comandos diretos conselho e motivacao.
+
+[ COMANDOS ]
+────────────────────────────────────────────────────────────
+
+* Novo comando:
+
+  quaq tarefas
+
+* O comando frase agora possui os subcomandos:
+
+  quaq frase conselho
+
+  quaq frase motivacao
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.5
+
+* Novo gerenciador de tarefas.
+* Atualização da interface do Pomodoro.
+* Organização dos comandos de frases através de subcomandos.
+
+- Remoção dos comandos diretos conselho e motivacao.
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.5
+"Um passo de cada vez."
