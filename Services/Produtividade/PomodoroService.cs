@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Quaq.Services.Sistema;
+using Spectre.Console;
 
 namespace Quaq.Services.Produtividade;
 
@@ -42,6 +43,7 @@ public class PomodoroService
         };
         while(true)
         {
+        
             IniciarRelogio(TempoFoco, "Foco", psi);
             IniciarRelogio(Ciclo % 4 == 0? TempoDescanso: TempoDescansoLongo, "Descanso", psi);
             Ciclo++;
@@ -71,7 +73,46 @@ public class PomodoroService
 
     private void AtualizarLayout(int ciclo, string est, string tempo)
     {
-        
+        AnsiConsole.Clear();
+
+        var tabela = new Table
+        {
+            Border = TableBorder.Rounded,
+            Expand = true
+        };
+
+        tabela.AddColumn(new TableColumn("Pomodoro"));
+
+        tabela.AddRow(
+            new Markup($"[bold]Ciclo[/] - {ciclo}")
+        );
+
+        tabela.AddRow(
+            new Markup($"[bold]Estado[/] - {Markup.Escape(est)}")
+        );
+
+        tabela.AddRow(
+            new Markup($"[bold]Tempo[/] - [bold]{Markup.Escape(tempo)}[/]")
+        );
+
+        AnsiConsole.Write(tabela);
+
+        AnsiConsole.WriteLine();
+
+        var controles = new Panel(
+            new Markup(
+                "[bold]Controles[/]\n\n" +
+                "[grey]Espaço[/]  Pausar/Continuar\n" +
+                "[grey]R[/]       Reiniciar\n" +
+                "[grey]S[/]       Sair"
+            )
+        )
+        {
+            Header = new PanelHeader("Teclas"),
+            Border = BoxBorder.Rounded
+        };
+
+        AnsiConsole.Write(controles);
     }
 }
    
