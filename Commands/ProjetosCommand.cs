@@ -18,19 +18,10 @@ public class ProjetosCommand : IComando
             CriarTerminalCommand(),
             CriarRunCommand(),
             CriarCommitCommand(),
-            CriarMenuCommand()
 
         };
 
         return projetosCmd;
-    }
-
-
-    public Command CriarMenuCommand()
-    {
-        var menuCmd = new Command("menu", "Menu do gerenciador de projetos");
-        menuCmd.SetAction(_ => new ProjetoService().ProjMenu());
-        return menuCmd;
     }
 
     public Command CriarRunCommand()
@@ -66,22 +57,13 @@ public class ProjetosCommand : IComando
     private static Command CriarListCommand()
     {
         var cmd = new Command("ls", "Lista todos os projetos");
-
-        cmd.SetAction(_ =>
-        {
-            new ProjetoService().Exibir();
-        });
-
+        cmd.SetAction(_ => new ProjetoService().Exibir());
         return cmd;
     }
 
     private static Command CriarCommitCommand()
     {
-        var nomeArg = new Argument<string>("nome")
-        {
-            Description = "Nome do projeto"
-        };
-
+        
         var MensagemArg = new Argument<string>("Mensagem")
         {
             Description = "Mensagem pra commit"
@@ -89,13 +71,12 @@ public class ProjetosCommand : IComando
 
         var cmd = new Command("commit", "Faz o commit")
         {
-            nomeArg,
             MensagemArg
         };
 
         cmd.SetAction(pr =>
         {
-            new ProjetoService().FazerCommit(pr.GetValue(nomeArg)!,pr.GetValue(MensagemArg)! );
+            new ProjetoService().FazerCommit(pr.GetValue(MensagemArg)! );
         });
 
         return cmd;
@@ -103,41 +84,15 @@ public class ProjetosCommand : IComando
 
     private static Command CriarOpenCommand()
     {
-        var nomeArg = new Argument<string>("nome")
-        {
-            Description = "Nome do projeto"
-        };
-
-        var cmd = new Command("abrir", "Abre a pasta do projeto")
-        {
-            nomeArg
-        };
-
-        cmd.SetAction(pr =>
-        {
-            new ProjetoService().AbrirProjeto(pr.GetValue(nomeArg)!);
-        });
-
+        var cmd = new Command("abrir", "Abre a pasta do projeto");
+        cmd.SetAction(pr => new ProjetoService().AbrirProjeto());
         return cmd;
     }
 
     private static Command CriarCodeCommand()
     {
-        var nomeArg = new Argument<string>("nome")
-        {
-            Description = "Nome do projeto"
-        };
-
-        var cmd = new Command("code", "Abre o projeto no VS Code")
-        {
-            nomeArg
-        };
-
-        cmd.SetAction(pr =>
-        {
-            new ProjetoService().CodarProjeto(pr.GetValue(nomeArg)!);
-        });
-
+        var cmd = new Command("code", "Abre o projeto no VS Code");
+        cmd.SetAction(pr => new ProjetoService().CodarProjeto());
         return cmd;
     }
 
@@ -163,42 +118,15 @@ public class ProjetosCommand : IComando
 
     private static Command CriarDeleteCommand()
     {
-        var nomeArg = new Argument<string>("nome")
-        {
-            Description = "Nome do projeto"
-        };
-
-        var cmd = new Command("rm", "Remove um projeto salvo")
-        {
-            nomeArg
-        };
-
-        cmd.SetAction(pr =>
-        {
-            new ProjetoService().DeletarProjeto(pr.GetValue(nomeArg)!);
-        });
-
+        var cmd = new Command("rm", "Remove um projeto salvo");
+        cmd.SetAction(pr => new ProjetoService().DeletarProjeto());
         return cmd;
     }
 
     private static Command CriarTerminalCommand()
     {
-        var nomeArg = new Argument<string>("nome")
-        {
-            Description = "Nome do projeto"
-        };
-
-        var cmd = new Command("term", "Abre o terminal de um projeto salvo")
-        {
-            nomeArg
-        };
-
-        cmd.SetAction(pr =>
-        {
-            new ProjetoService().AbrirTerminal
-            (pr.GetValue(nomeArg)!);
-        });
-
+        var cmd = new Command("term", "Abre o terminal de um projeto salvo");
+        cmd.SetAction(pr => new ProjetoService().AbrirTerminal());
         return cmd;
     }
 }

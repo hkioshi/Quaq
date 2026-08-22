@@ -9,7 +9,7 @@ public class ContatoCommand : IComando
 {
     private static Command CriarListaCommand()
     {
-        var cmd = new Command("lista", "Abre um menu dos contatos");
+        var cmd = new Command("lista", "Abre uma lista dos contatos");
         cmd.SetAction(pr =>
         {
             ContatoService.ExibirTodosContatos();
@@ -40,94 +40,24 @@ public class ContatoCommand : IComando
         return cmd;
     }
 
-    private static Command CriarDefEmailCommand()
+    private static Command CriarDefinirCommand()
     {
-        var nomeArg = new Argument<string>("Nome")
+         var nomeArg = new Argument<string>("Nome")
         {
             Description = "Nome do contato."
         };
-        var emailArg = new Argument<string>("Email")
-        {
-            Description = "Email do contato."
-        };
-        var cmd = new Command("email", "Define o email do contato.")
-        {
-            nomeArg,
-            emailArg
-        };
-        cmd.SetAction(pr =>
-        {
-            var nome = pr.GetValue(nomeArg);
-            var email = pr.GetValue(emailArg);
 
-            if(nome is null)
-            {
-                UiService.ErroUi("Nome deve ser informado");
-                return;
-            }
-            if(email is null)
-            {
-                UiService.ErroUi("Email deve ser informado");
-                return;
-            }
-            ContatoService.DefinirEmail(nome, email);
-        });
-        return cmd;
-    }
-    private static Command CriarDefTelefoneCommand()
-    {
-        var nomeArg = new Argument<string>("Nome")
+        var cmd = new Command("def", "Define contato.")
         {
-            Description = "Nome do contato."
+            nomeArg
         };
-        var telefoneArg = new Argument<string>("Telefone")
-        {
-            Description = "Telefone do contato."
-        };
-        var cmd = new Command("telefone", "Define o telefone do contato.")
-        {
-            nomeArg,
-            telefoneArg
-        };
-        cmd.SetAction(pr =>
-        {
-            var nome = pr.GetValue(nomeArg);
-            var telefone = pr.GetValue(telefoneArg);
-
-            if(nome is null)
-            {
-                UiService.ErroUi("Nome deve ser informado");
-                return;
-            }
-            if(telefone is null)
-            {
-                UiService.ErroUi("Telefone deve ser informado");
-                return;
-            }
-            ContatoService.DefinirEmail(nome, telefone);
-        });
+        cmd.SetAction(pr => ContatoService.Definir(pr.GetValue(nomeArg)!));
         return cmd;
     }
     private static Command CriarDeletarCommand()
     {
-        var nomeArg = new Argument<string>("Nome")
-        {
-            Description = "Nome do contato."
-        };
-        var cmd = new Command("deletar", "Deleta o contato do nome informado.")
-        {
-            nomeArg
-        };
-        cmd.SetAction(pr =>
-        {
-            var nome = pr.GetValue(nomeArg);
-            if(nome is null)
-            {
-                UiService.ErroUi("Nome deve ser informado");
-                return;
-            }
-            ContatoService.DeletarContato(nome);
-        });
+        var cmd = new Command("deletar", "Deleta contato.");
+        cmd.SetAction(pr => ContatoService.DeletarContato());
         return cmd;
     }
 
@@ -136,8 +66,7 @@ public class ContatoCommand : IComando
         {
             CriarListaCommand(),
             CriarBuscaContatoCommand(),
-            CriarDefEmailCommand(),
-            CriarDefTelefoneCommand(),
+            CriarDefinirCommand(),
             CriarDeletarCommand()
         };
         

@@ -8,15 +8,12 @@ public class CodarCommand : IComando
 {
     public Command Get()
     {
-        var CodarArg = new Argument<string>("Nome do projeto");
-        var CodarCmd = new Command("codar", "Abre o vs code de um projeto salvo")
-        {
-            CodarArg
-        };
+        var CodarCmd = new Command("codar", "Abre o vs code de um projeto salvo");
+        
 
-        CodarCmd.SetAction( pr => 
+        CodarCmd.SetAction( _ => 
         {
-            new ProjetoService().CodarProjeto(pr.GetValue(CodarArg)!);
+            new ProjetoService().CodarProjeto();
         });
 
         return CodarCmd;

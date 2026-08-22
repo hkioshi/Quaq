@@ -8,7 +8,7 @@ public class TarefaCommand : IComando
 {
 
     public Command Get() =>
-        new Command("tarefa", "Ferramenta gerenciadora de tarefas")
+        new Command("tarefas", "Ferramenta gerenciadora de tarefas")
             {
                 CriarNovaTarefaCommand(),
                 CriarMudarStatusCommand(),

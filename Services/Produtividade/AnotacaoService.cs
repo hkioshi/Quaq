@@ -7,7 +7,23 @@ namespace Quaq.Services.Produtividade;
 public class AnotacaoService
 {
 
-    
+    internal static void DeletarAnotacao()
+    {
+        AnotacaoRepositorio repos = new("anotacoes.json");
+
+        var cadernos = repos.BuscarTodosCadernos();
+            var opcao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione um Caderno:[/]")
+                .AddChoices(cadernos));
+        
+        
+            repos.Remover(opcao);
+            return;
+        
+        
+        
+    }
     internal static void IniciarAnotacao(string nomeCaderno)
     {
         AnotacaoRepositorio repos = new("anotacoes.json");
@@ -18,8 +34,8 @@ public class AnotacaoService
         {
             if (ann.Count > 0)
             {
-                repos.SalvarAnotacoes(nomeCaderno, ann);
                 Console.WriteLine("\nAnotações salvas.");
+                repos.SalvarAnotacoes(nomeCaderno, ann);
             }
         };
 
@@ -44,12 +60,21 @@ public class AnotacaoService
         AnotacaoRepositorio repos = new("anotacoes.json");
 
         var cadernos = repos.BuscarTodosCadernos();
+        cadernos.Add("[green]Novo Caderno[/]");
             var opcao = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("[bold]Selecione um Caderno:[/]")
                 .AddChoices(cadernos));
-            
-        IniciarAnotacao(opcao);
         
+        if(!opcao.Equals("[green]Novo Caderno[/]"))
+        {
+            IniciarAnotacao(opcao);
+            return;
+        }
+            
+        var caderno = AnsiConsole.Prompt(
+                new TextPrompt<string>("Nome do caderno")
+                    .DefaultValue("Caderno"));
+        IniciarAnotacao(caderno);
     }
 }

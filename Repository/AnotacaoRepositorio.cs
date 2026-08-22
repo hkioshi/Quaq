@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Quaq.Data;
+using Quaq.Services.Sistema;
 
 namespace Quaq.Repository;
 
@@ -40,10 +41,11 @@ public class AnotacaoRepositorio:Repositorio
     var json = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(AbrirJson())
         ?? new Dictionary<string, List<string>>();
 
-
-        anotacoes.ForEach(a => json[nome].Add(a));
+        if(!json.ContainsKey(nome))
+            json.Add(nome, []);
+        foreach(var i in anotacoes)
+            json[nome].Add(i);
         
-
         string texto = JsonSerializer.Serialize(json, new JsonSerializerOptions
         {
             WriteIndented = true
@@ -52,6 +54,29 @@ public class AnotacaoRepositorio:Repositorio
         File.WriteAllText(caminho, texto);
     }
 
+    internal void Remover(string opcao)
+    {
+        var projs = JsonSerializer.Deserialize<Dictionary<string,List<string>>>(AbrirJson()) 
+            ?? new Dictionary<string,List<string>>();
+            if(projs.ContainsKey(opcao))
+            {
+                UiService.OkUi("Caderno encontrado, quer mesmo deletar (y/n)");
+                ConsoleKeyInfo tecla = Console.ReadKey();
 
+                if (tecla.Key == ConsoleKey.Y)
+                {
+                    projs.Remove(opcao);
+                    UiService.OkUi("\nDeletado com sucesso");
+                }
+                else
+                    UiService.OkUi("\nCancelado.");
+                
+            }
+            string texto = JsonSerializer.Serialize(projs, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
 
+            File.WriteAllText(caminho, texto);
+    }
 }

@@ -652,3 +652,132 @@ Correção de bug no Pomodoro.
 ────────────────────────────────────────────────────────────
 QUAQ 1.6.6
 "Um passo de cada vez."
+
+╔══════════════════════════════════════════════════════════════╗
+║ QUAQ 1.6.7 — DEV LOG ║
+╚══════════════════════════════════════════════════════════════╝
+
+[ ALTERAÇÕES ]
+────────────────────────────────────────────────────────────
+
+O comando anotacao passou a utilizar menus para seleção
+e gerenciamento de anotações.
+Os subcomandos de anotacao foram reorganizados:
+menu e anotar foram substituídos por deletar e menu.
+O comando baixarmp3 foi renomeado para ymp3.
+O comando ymp3 deixou de receber o nome da playlist como
+argumento. A playlist agora é selecionada por meio de menu.
+O comando codar não precisa mais receber o nome do projeto
+como argumento. O projeto agora é selecionado por menu.
+O comando contato passou a utilizar menus para definir
+informações de contato.
+Os subcomandos email e telefone do comando contato foram
+substituídos por definir.
+O comando contato agora recebe apenas o nome do projeto
+como argumento. Dentro do comando, um menu permite escolher
+entre definir email ou telefone.
+O subcomando deletar do comando contato não precisa mais
+receber o nome do contato como argumento. O contato agora
+é selecionado por menu.
+O comando playlist não precisa mais receber o nome da
+playlist como argumento.
+A opção de shuffle do comando playlist passou a ser
+selecionada por menu.
+O comando proj perdeu o subcomando menu.
+Os subcomandos do comando proj que utilizam nome passaram
+a utilizar menus para selecionar os itens, com exceção
+do comando salvar.
+O comando tarefa foi renomeado para tarefas.
+
+[ MELHORIAS ]
+────────────────────────────────────────────────────────────
+
+Maior utilização de menus interativos nos comandos do Quaq.
+Redução da quantidade de argumentos necessários para executar
+comandos.
+Seleção de itens diretamente pelos menus, tornando a utilização
+dos comandos mais simples e interativa.
+
+A calculadora agora permite inserir expressões matemáticas
+diretamente, como:
+
+quaq calcular
+
+Exemplo:
+2 * 2
+
+O comando calcular passou a coletar a expressão matemática
+dentro do próprio comando.
+
+[ CORREÇÕES ]
+────────────────────────────────────────────────────────────
+
+Correção de um bug na calculadora.
+
+Correção do fluxo de entrada de expressões matemáticas,
+permitindo operações como:
+
+2 * 2
+
+[ COMANDOS ]
+────────────────────────────────────────────────────────────
+
+Alteração:
+
+quaq anotacao
+
+Agora utiliza menus para selecionar as operações disponíveis.
+
+Novo comando:
+
+quaq deletar
+
+Alteração:
+
+quaq ymp3 <url>
+
+A playlist é selecionada pelo menu.
+
+Alteração:
+
+quaq calcular
+
+A expressão matemática é informada dentro do comando.
+
+Alteração:
+
+quaq codar
+
+O projeto é selecionado pelo menu.
+
+Alteração:
+
+quaq contato definir <nome>
+
+O menu permite escolher entre email e telefone.
+
+Alteração:
+
+quaq playlist
+
+A playlist e a opção de shuffle são selecionadas por menu.
+
+Alteração:
+
+quaq tarefas
+
+[ RESUMO ]
+────────────────────────────────────────────────────────────
+
+Quaq 1.6.7
+
+Expansão dos menus interativos.
+Redução da necessidade de argumentos nos comandos.
+Reorganização dos comandos anotacao, contato, playlist e proj.
+Renomeação dos comandos baixarmp3 e tarefa.
+Correção de bugs na calculadora.
+Entrada de expressões matemáticas diretamente pelo comando.
+
+────────────────────────────────────────────────────────────
+QUAQ 1.6.7
+"Um passo de cada vez."

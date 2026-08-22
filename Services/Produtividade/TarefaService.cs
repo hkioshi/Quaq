@@ -9,6 +9,7 @@ public class TarefaService
     private static TarefaRepository repos = new("tarefas.json");
     private static int BuscarId()
     {
+        
         var dict = repos.BuscarTodasTarefas();
 
         if (dict.Count == 0)
@@ -44,6 +45,7 @@ public class TarefaService
 
     public static void ExibirTodos()
     {
+
         int id = BuscarId();
         if(id != -1)
             ExibirTarefa(id);

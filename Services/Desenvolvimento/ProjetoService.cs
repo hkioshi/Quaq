@@ -7,8 +7,9 @@ public class ProjetoService
 {
     ProjetosRepositorio repos = new("projetos.json");
 
-    internal void AbrirProjeto(string v)
+    internal void AbrirProjeto()
     {
+        string v = BuscarNome();
         string? caminho = repos.ExibirCaminho(v);
         if(caminho is null)
         {
@@ -23,8 +24,9 @@ public class ProjetoService
         });
     }
 
-    public void AbrirTerminal(string nomeProjeto)
+    public void AbrirTerminal()
     {
+        string nomeProjeto = BuscarNome();
 
         string? caminho = repos.ExibirCaminho(nomeProjeto);
 
@@ -43,23 +45,36 @@ public class ProjetoService
 
         Process.Start(psi);
     }
-
-    internal void CodarProjeto(string v)
+    internal void CodarProjeto()
     {
+        string v = BuscarNome();
         string? caminho = repos.ExibirCaminho(v);
         if(caminho is null)
         {
             Console.WriteLine($"Nenhum projeto chamado {v} foi encontrado");
             return;
         }
-
-        Console.WriteLine(caminho);
         Process.Start("code", caminho);
     }
 
-    internal void DeletarProjeto(string v) =>
+
+    private string BuscarNome()
+    {
+        var listaDeProjeto = repos.ExibirTodosProjetos();
+        var opcao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione uma Projeto:[/]")
+                .AddChoices(listaDeProjeto.Select(x => x.Key)));
+        return opcao;
+    }
+
+
+    internal void DeletarProjeto()
+    {
+        string v = BuscarNome();
         repos.DeletarProjeto(v);
-    
+
+    }    
     internal void Exibir()
     {
         var listaDeProjeto = repos.ExibirTodosProjetos();
@@ -70,8 +85,9 @@ public class ProjetoService
 
     }
 
-    internal void FazerCommit(string v, string mensagem)
+    internal void FazerCommit(string mensagem)
     {
+        string v = BuscarNome();
         string? caminho = repos.ExibirCaminho(v);
         if (caminho is not null)
         {
@@ -108,46 +124,4 @@ public class ProjetoService
         
     }
 
-    internal void ProjMenu()
-    {
-        var listaDeProjeto = repos.ExibirTodosProjetos();
-        var opcao = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title("[bold]Selecione uma Projeto:[/]")
-                .AddChoices(listaDeProjeto.Select(x => x.Key))
-        );
-        var acao = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title($"[bold]O que gostaria de fazer com [/][blue]{opcao}[/]")
-                .AddChoices(
-                    "Abrir no gerenciador de arquivos",
-                    "Abrir no VsCode",
-                    "Deletar projeto",
-                    "Abrir no terminal",
-                    "Fazer commit do projeto"
-                )
-        );
-        switch (acao)
-        {
-            case "Abrir no gerenciador de arquivos":
-                AbrirProjeto(opcao);
-                break;
-            case "Abrir no VsCode":
-                CodarProjeto(opcao);
-                break;
-            case "Deletar projeto":
-                DeletarProjeto(opcao);
-                break;
-            case "Abrir no terminal":
-                AbrirTerminal(opcao);
-                break;
-            case "Fazer commit do projeto":
-                var mensagem = AnsiConsole.Prompt(
-                new TextPrompt<string>("Mensagem do commit")
-                    .DefaultValue("Novo Commit"));
-                FazerCommit(opcao, mensagem);
-                break;
-        }
-        
-    }
 }

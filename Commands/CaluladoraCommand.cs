@@ -8,18 +8,11 @@ public class CaluladoraCommand : IComando
 {
     public Command Get()
     {
-       var calculoCmd = new Command("calculo", "Calculadora");
-
-        var contaArg = new Argument<string[]>("conta")
-        {
-            Description = "Conta a ser calculada"
-        };
-
-        calculoCmd.Add(contaArg);
+       var calculoCmd = new Command("calcular", "Calculadora");
 
         calculoCmd.SetAction(parseResult =>
         {
-            CalculadoraService.Calcular(parseResult.GetValue(contaArg)!);
+            CalculadoraService.Calcular();
             
         });
 

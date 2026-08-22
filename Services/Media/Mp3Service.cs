@@ -1,15 +1,47 @@
 using System.Diagnostics;
+using System.Runtime.Intrinsics.Arm;
 using Quaq.Services.Sistema;
+using Spectre.Console;
 namespace Quaq.Services.Media;
 public class Mp3Service
 {
-    public static void BaixarMp3(string url, string playlist)
+    public static void BaixarMp3(string url)
     {
-        string pastaMusicas = Path.Combine(
+         string pastaMusicas = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            $"Músicas/{playlist}"
+            $"Músicas"
         );
 
+        Console.WriteLine(pastaMusicas);
+
+        List<string> playlists = [];
+
+        foreach (string pasta in Directory.GetDirectories(pastaMusicas))
+        {
+            string nomePlaylist = Path.GetFileName(pasta);
+            playlists.Add(nomePlaylist);
+        }
+            
+            
+    
+            playlists.Add("[green]Nova Playlist[/]");
+            var opcao = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("[bold]Selecione uma playlist:[/]")
+                .AddChoices(playlists));
+        
+        string playlist = "";
+        if(opcao.Equals("[green]Nova Playlist[/]"))
+        {
+            playlist = AnsiConsole.Prompt(
+                new TextPrompt<string>("Nome da playlist")
+                    .DefaultValue("mix"));
+        }
+        else
+            playlist = opcao;
+
+
+        pastaMusicas = Path.Combine(pastaMusicas, playlist);
         Directory.CreateDirectory(pastaMusicas);
 
         string saida = Path.Combine(
